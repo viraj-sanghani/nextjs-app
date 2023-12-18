@@ -15,12 +15,12 @@ function Bot({ fullScreen }) {
   const message = "Click here to see the magic 🤖"; // "🙌 Welcome back! How may I help you today? 🤖";
   const showBot = useFindVisibility(chatbotInvalidPath);
 
-  fullScreen
-    ? dispatch(setBotOpen(true))
-    : useModalBackPress({
-        open: isOpen,
-        hide: () => dispatch(setBotOpen(false)),
-      });
+  fullScreen && dispatch(setBotOpen(true));
+
+  useModalBackPress({
+    open: isOpen,
+    hide: () => dispatch(setBotOpen(false)),
+  });
 
   /* const handleMessage = (e) => {
     if (e.data.flag === "returnData") {
