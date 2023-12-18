@@ -1,0 +1,18 @@
+components
+  DataLoading
+  Footer
+  Navbar
+  NewsLetter
+  Searchbar
+  SearchbarFilter
+  Sidebar
+  UserLogo
+redux 👍
+bot 👍
+
+
+
+
+pending
+=========
+bot/chat/property => swiper 
