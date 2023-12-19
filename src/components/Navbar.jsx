@@ -18,7 +18,6 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const isValidPath = useFindVisibility(navbarInvalidPath);
-
   const showSearchbar = pathname === "" || pathname === "/" || isValidPath;
 
   const handleScroll = (e) => {
