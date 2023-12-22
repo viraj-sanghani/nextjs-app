@@ -222,12 +222,12 @@ export const toCSString = (number) => {
 export const propertySmallImg = (img) =>
   img
     ? `${process.env.NEXT_PUBLIC_AWS_URL}/property/small/${img}`
-    : images.noImage;
+    : "/img/no-image.png";
 
 export const propertyOriginalImg = (img) =>
   img
     ? `${process.env.NEXT_PUBLIC_AWS_URL}/property/original/${img}`
-    : images.noImage;
+    : "/img/no-image.png";
 
 export const propertyBrochure = (file) =>
   `${process.env.NEXT_PUBLIC_AWS_URL}/property/brochure/${file}`;

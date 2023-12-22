@@ -1,6 +1,8 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import UserLogo from "./UserLogo";
 import { setAuthModel, setLogoutModel } from "@/redux/reducers/authReducer";

@@ -1,5 +1,9 @@
 import { Inter } from "next/font/google";
 import "@/styles/app.css";
+import "@/styles/compare.css";
+import "@/styles/swiper.min.css";
+import "@/styles/navigation.css";
+import RootProvider from "./Provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -8,7 +12,7 @@ export const metadata = {
   description: "",
 };
 
-export default function RootLayout({ children }) {
+const RootLayout = ({ children }) => {
   return (
     <html lang="en">
       <head>
@@ -22,7 +26,11 @@ export default function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&family=Source+Sans+Pro:wght@200&display=swap"
         />
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <RootProvider>{children}</RootProvider>
+      </body>
     </html>
   );
-}
+};
+
+export default RootLayout;

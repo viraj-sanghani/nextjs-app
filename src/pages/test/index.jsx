@@ -1,11 +1,17 @@
-import Layout from "@/components/Layout";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 function page({ data }) {
+  const handle = (id) => {
+    router.push({
+      pathname: `/property/${id}`,
+      query: { data: "test" },
+    });
+  };
+
   return (
-    <Layout>
+    <>
       <Link href={"/faq"}>FAQ</Link>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
         {data?.sale &&
@@ -36,7 +42,7 @@ function page({ data }) {
               key={ele.id}
               style={{ width: 200, border: "1px solid lightgray" }}
             >
-              <Link href={`/property/${ele.id}`}>
+              <Link passHref onClick={() => handle(ele.id)}>
                 <Image
                   src={
                     "https://trackerweblord.s3.ap-south-1.amazonaws.com/housingmagic/property/small/" +
@@ -53,7 +59,7 @@ function page({ data }) {
             </div>
           ))}
       </div>
-    </Layout>
+    </>
   );
 }
 

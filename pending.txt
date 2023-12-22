@@ -1,18 +1,57 @@
 components
+  Auth
+  CustomHook
   DataLoading
+  FileUpload
+  Filter
   Footer
+  GoogleAnalytics
+  HtmlToPdf
+  Logout
   Navbar
+  NearByLocation
   NewsLetter
+  NoData
+  Pagination
+  ScrollTop
   Searchbar
   SearchbarFilter
   Sidebar
+  SiteVisitForm
+  SocialShare
+  SpeechRecognition
   UserLogo
-redux 👍
-bot 👍
+  ViewContact
+pages
+  account
+  activity
+  auth
+  chatbot
+  compare
+  info
+  support
+queryHooks
+  useSearchSuggestion
+  useGetCompareProperty
+redux
+bot
+utils
 
 
 
 
 pending
 =========
+components
+  GoogleMap
+  Swiper
+pages
+  blog
+  home
+  property
+  searchResult
+  tools
 bot/chat/property => swiper 
+utils/validation => step1FormFields
+auth => socialAuth
+component/SiteVisitForm => datePicker

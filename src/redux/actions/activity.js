@@ -1,8 +1,8 @@
 import {
   addToShortlist,
   removeFromShortlist,
-} from "../reducers/activityReducer";
-import { addShortlisted, call, removeShortlisted } from "./../axios";
+} from "@/redux/reducers/activityReducer";
+import { addShortlisted, call, removeShortlisted } from "@/services/api";
 
 export const shortlistToggle = (data) => async (dispatch) => {
   try {

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useFormik } from "formik";
 import { useState } from "react";
 import { getDevice } from "@/utils/helper";
-import { useRouter } from "next/router";
+import { usePathname, useRouter } from "next/navigation";
 
 export function useOutsideClick(ref, callback) {
   useEffect(() => {
@@ -36,7 +36,7 @@ export function useForm({
 }
 
 export const useFindVisibility = (invalidPath) => {
-  const { pathname } = useRouter();
+  const pathname = usePathname();
 
   const shouldShow = !invalidPath.some((substring) =>
     pathname.includes(substring)
@@ -46,6 +46,7 @@ export const useFindVisibility = (invalidPath) => {
 };
 
 export const useModalBackPress = ({ open, hide, url }) => {
+  const pathname = usePathname();
   const router = useRouter();
   const [show, setShow] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -62,7 +63,7 @@ export const useModalBackPress = ({ open, hide, url }) => {
     if (["MOBILE", "TABLET"].includes(device)) {
       if (isOpen) {
         router.push({
-          pathname: router.pathname,
+          pathname: pathname,
           search: router.asPath.split("?")[1] || "",
         });
         setShow(true);

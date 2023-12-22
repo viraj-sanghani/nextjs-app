@@ -4,22 +4,25 @@ import { encryption } from "@/utils/crypto";
 const API = axios.create({ baseURL: process.env.NEXT_PUBLIC_API });
 const API1 = axios.create({ baseURL: process.env.NEXT_PUBLIC_API });
 
-API.interceptors.request.use((req) => {
-  req.withCredentials = true;
-  if (localStorage.getItem("AUTH_TOKEN")) {
-    req.headers.Authorization = `Bearer ${localStorage.getItem("AUTH_TOKEN")}`;
-  }
-  return req;
-});
+if (typeof window !== "undefined") {
+  const authToken = localStorage.getItem("AUTH_TOKEN");
+  API.interceptors.request.use((req) => {
+    req.withCredentials = true;
+    if (authToken) {
+      req.headers.Authorization = `Bearer ${authToken}`;
+    }
+    return req;
+  });
 
-API1.interceptors.request.use((req) => {
-  req.withCredentials = true;
-  if (localStorage.getItem("AUTH_TOKEN")) {
-    req.headers.Authorization = `Bearer ${localStorage.getItem("AUTH_TOKEN")}`;
+  API1.interceptors.request.use((req) => {
+    req.withCredentials = true;
+    if (authToken) {
+      req.headers.Authorization = `Bearer ${authToken}`;
+    }
     req.headers.contentType = "multipart/form-data";
-  }
-  return req;
-});
+    return req;
+  });
+}
 
 export const call = (callback) => {
   return new Promise(async (resolve, reject) => {
@@ -33,9 +36,10 @@ export const call = (callback) => {
         reject(data);
       }
     } catch (err) {
-      if (err?.response?.status === 401) {
-        localStorage.setItem("isLoggedin", false);
-      }
+      // if (err?.response?.status === 401) {
+      //   typeof window !== "undefined" &&
+      //     localStorage.setItem("isLoggedin", false);
+      // }
       reject(
         err.response?.data?.errors ||
           err.response?.data?.message ||

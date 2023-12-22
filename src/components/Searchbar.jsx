@@ -1,8 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { setListenerOpen, setLocationOpen } from "@/redux/reducers/appReducer";
 import icons from "@/utils/icons";
-import images from "@/utils/images";
 import DataLoading from "./DataLoading";
 import { useGetSearchSuggestion } from "./../queryHooks/useSearchSuggestion";
 import SearchbarFilter from "./SearchbarFilter";
@@ -235,7 +237,12 @@ function Searchbar({ isHome }) {
                 ))
               ) : (
                 <div className="no-data">
-                  <img src={images.noResult} alt="" height="300" />
+                  <Image
+                    src="/img/no-result.gif"
+                    height={300}
+                    width={400}
+                    alt="No Result"
+                  />
                 </div>
               )
             ) : (

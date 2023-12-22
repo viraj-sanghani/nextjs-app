@@ -1,20 +1,39 @@
-"use client";
+import { call, getFAQ } from "@/services/api";
+import Data from "./Data";
 
-import icons from "@/utils/icons";
-import React, { useState } from "react";
+/* export const getServerSideProps = async () => {
+  try {
+    const res = await call(getFAQ());
 
-function Data({ d }) {
-  const [expandedIndex, setExpandedIndex] = useState(null);
+    return {
+      props: {
+        data: res.data,
+      },
+      // revalidate: 60,
+    };
+  } catch (err) {
+    return {
+      props: {
+        data: [],
+      },
+      // revalidate: 60,
+    };
+  }
+}; */
 
-  const handleDivClick = (index) => {
-    if (expandedIndex === index) {
-      // Clicked on an already expanded div, so shrink it
-      setExpandedIndex(null);
-    } else {
-      // Clicked on a different div, expand it
-      setExpandedIndex(index);
-    }
-  };
+async function fetchFAQData() {
+  try {
+    const res = await call(getFAQ());
+    return res.data;
+  } catch (error) {
+    console.error("Error fetching FAQ data:", error);
+    return []; // Re-throw the error to handle it elsewhere if needed
+  }
+}
+
+async function FAQ() {
+  const data = await fetchFAQData();
+
   return (
     <div>
       <div className="page-title">
@@ -22,21 +41,7 @@ function Data({ d }) {
       </div>
       <div className="max-width page-content">
         <div className="faq-question-container">
-          {d?.length > 0 &&
-            d.map((ele, i) => (
-              <div className="faq-question-wrap" key={i}>
-                <div
-                  className="faq-w-question"
-                  onClick={() => handleDivClick(i)}
-                >
-                  {ele.question}
-                  {expandedIndex === i ? icons.upArrow : icons.downArrow}
-                </div>
-                {expandedIndex === i && (
-                  <div className="faq-w-answer">{ele.answer}</div>
-                )}
-              </div>
-            ))}
+          <Data data={data} />
         </div>
         <h3 className="page-con-title faq-section">
           How can housingmagic FAQ help users?
@@ -57,4 +62,4 @@ function Data({ d }) {
   );
 }
 
-export default Data;
+export default FAQ;

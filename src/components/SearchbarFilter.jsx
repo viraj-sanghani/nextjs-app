@@ -1,5 +1,7 @@
-import React, { memo, useEffect, useState } from "react";
-import { useRouter } from "next/router";
+"use client";
+
+import { memo, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { Button, Slider, Switch } from "@mui/material";
 import icons from "@/utils/icons";
@@ -359,15 +361,15 @@ function SearchbarFilter({ minimizeSearch, searchParams, className }) {
     const urlParams = router.query;
 
     const data = {
-      propertyType: urlParams.property_type
+      propertyType: urlParams?.property_type
         ? urlParams.property_type.split(",")
         : [],
-      constructionStatus: urlParams.construction
+      constructionStatus: urlParams?.construction
         ? urlParams.construction.split(",")
         : [],
-      bedRoom: urlParams.bedroom ? urlParams.bedroom.split(",") : [],
-      postBy: urlParams.postby ? urlParams.postby.split(",") : [],
-      furnishing: urlParams.furnishing ? urlParams.furnishing.split(",") : [],
+      bedRoom: urlParams?.bedroom ? urlParams.bedroom.split(",") : [],
+      postBy: urlParams?.postby ? urlParams.postby.split(",") : [],
+      furnishing: urlParams?.furnishing ? urlParams.furnishing.split(",") : [],
     };
 
     let active = [];
@@ -379,8 +381,8 @@ function SearchbarFilter({ minimizeSearch, searchParams, className }) {
     ftr.forEach((ele) => {
       if (sliderKeys.includes(ele.key)) {
         const urlVal = {
-          min: urlParams[ele.key + "_min"] || null,
-          max: urlParams[ele.key + "_max"] || null,
+          min: urlParams?.[ele.key + "_min"] || null,
+          max: urlParams?.[ele.key + "_max"] || null,
         };
 
         if (urlVal.min || urlVal.max) {

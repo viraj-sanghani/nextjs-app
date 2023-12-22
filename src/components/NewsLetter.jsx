@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { error, success } from "./Toast";
 import { call, sendNewsLetter } from "@/services/api";

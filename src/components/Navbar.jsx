@@ -1,6 +1,8 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import Searchbar from "./Searchbar";
 import UserLogo from "./UserLogo";
@@ -12,7 +14,7 @@ import { useFindVisibility } from "./CustomHook";
 
 function Navbar() {
   const dispatch = useDispatch();
-  const { pathname } = useRouter();
+  const pathname = usePathname();
   const { profile, isLoggedIn } = useSelector((state) => state.auth);
   const [isHome, setIsHome] = useState(pathname === "" || pathname === "/");
   const [isOpen, setIsOpen] = useState(false);
@@ -28,11 +30,13 @@ function Navbar() {
     setIsOpen(false);
     if (pathname === "" || pathname === "/") {
       document.body.style.paddingTop = "70px";
+      setIsHome(true);
       document.addEventListener("scroll", handleScroll, { passive: true });
     } else if (!isValidPath) {
       document.body.style.paddingTop = "0px";
     } else {
       document.body.style.paddingTop = "70px";
+      setIsHome(false);
     }
     return () => {
       document.removeEventListener("scroll", handleScroll);

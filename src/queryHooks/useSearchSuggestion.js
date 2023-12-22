@@ -5,6 +5,7 @@ const fetchSearchSuggestion = async (search, type) => {
   const res = await call(getSuggestions({ term: search, type: type }));
   return res.data;
 };
+
 export const useGetSearchSuggestion = (search, type) => {
   return useQuery(
     ["get-SearchSuggestion", search, type],

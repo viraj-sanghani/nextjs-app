@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import NewsLetter from "@/components/NewsLetter";
 import { footerInvalidPath } from "@/utils/data";
