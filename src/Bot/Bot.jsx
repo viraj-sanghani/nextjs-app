@@ -2,14 +2,13 @@
 
 import "./style.css";
 import React from "react";
+import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "./Header";
 import ChatCon from "./ChatCon";
-import images from "@/utils/images";
 import { setBotOpen } from "@/redux/reducers/botReducer";
 import { chatbotInvalidPath } from "@/utils/data";
 import { useFindVisibility, useModalBackPress } from "@/components/CustomHook";
-import Image from "next/image";
 
 function Bot({ fullScreen }) {
   const dispatch = useDispatch();
