@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+"use client";
+
+import { useEffect, useState } from "react";
 
 const sectionNames = ["Home", "Overview", "Location", "More Details"];
 

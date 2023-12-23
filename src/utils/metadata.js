@@ -1,4 +1,4 @@
-const metadata = {
+export const metadata = {
   404: {
     title: "404 page not found | Housing Magic",
   },
@@ -156,4 +156,44 @@ const metadata = {
   },
 };
 
-export default metadata;
+const generateMetadata = (data) => {
+  if (typeof data === "string") {
+    const d = metadata[data];
+    return {
+      metadataBase: new URL(
+        "https://trackerweblord.s3.ap-south-1.amazonaws.com/"
+      ),
+      title: d.title,
+      keyword: d.keyword,
+      description: d.desc,
+      url: d.url,
+      openGraph: {
+        siteName: "Housing Magic",
+        title: d.title,
+        keyword: d.keyword,
+        description: d.desc,
+        url: d.url,
+        images: d.image,
+      },
+    };
+  } else
+    return {
+      metadataBase: new URL(
+        "https://trackerweblord.s3.ap-south-1.amazonaws.com/"
+      ),
+      title: data.meta_title,
+      keyword: data.meta_keyword,
+      description: data.meta_desc,
+      url: data.meta_url,
+      openGraph: {
+        siteName: "Housing Magic",
+        title: data.meta_title,
+        keyword: data.meta_keyword,
+        description: data.meta_desc,
+        url: data.meta_url,
+        images: d.image,
+      },
+    };
+};
+
+export default generateMetadata;

@@ -545,10 +545,11 @@ button {
 .swiper-wrapper {
   align-items: stretch !important;
 }
-.swiper-slide {
-  width: auto;
-  height: unset;
+.property-swiper .swiper-slide {
+  width: auto !important;
+  height: unset !important;
 }
+
 .swiper-button-next,
 .swiper-button-prev {
   background: #fff;

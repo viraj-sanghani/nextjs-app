@@ -1,10 +1,37 @@
-import StickyNav from "./StickyNav";
-import icons from "@/utils/icons";
-import { Button } from "@mui/material";
-import amenitiesIcon from "@/utils/amenities";
-import { useRouter } from "next/router";
+"use client";
 
-const compareProperty = [];
+import { useEffect, useMemo, useState } from "react";
+import ImageGallery from "react-image-gallery";
+import "react-image-gallery/styles/css/image-gallery.css";
+import moment from "moment";
+import { Button } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import icons from "@/utils/icons";
+import amenitiesIcon from "@/utils/amenities";
+import SiteVisitForm from "@/components/SiteVisitForm";
+import { setContact, setShare } from "@/redux/reducers/appReducer";
+import NearByPlace from "@/components/LeafLetMap/NearByPlace";
+import {
+  formatNumber,
+  propertyBrochure,
+  propertyOriginalImg,
+  propertySmallImg,
+} from "@/utils/helper";
+import Error from "@/components/Error";
+import PropertySwiper from "@/components/Swiper/PropertySwiper";
+import AdvertiseSwiper from "@/components/Swiper/AdvertiseSwiper";
+import AdvertiseCard from "@/components/Cards/AdvertiseCard";
+import { toggleCompare } from "@/redux/reducers/activityReducer";
+import { toggleShortlist } from "@/redux/reducers/filterReducer";
+import { shortlistToggle } from "@/redux/actions/activity";
+import {
+  call,
+  addViewedData,
+  getAds,
+  getSimilarProperty,
+} from "@/services/api";
+import { useGetPropertyDetails } from "@/queryHooks/usePropertyDetails";
+import DataLoading from "@/components/DataLoading";
 
 const overview = (label, value, icon = null) => {
   return (
@@ -32,12 +59,149 @@ const detail = (label, value) => {
   );
 };
 
-const Property = ({ data }) => {
-  const router = useRouter();
+const sectionNames = ["Home", "Overview", "Location", "More Details"];
 
-  return (
+const PropertyDetail = ({ params }) => {
+  const dispatch = useDispatch();
+  const id = (params?.propertyId || "").split("-").at(-1);
+  // const [data, setData] = useState({});
+  const [similarProperty, setSimilarProperty] = useState([]);
+  const [ads, setAds] = useState([]);
+  const [activeSection, setActiveSection] = useState(0);
+  const { compareProperty } = useSelector((state) => state.activity);
+
+  const {
+    data,
+    isLoading: loading,
+    isFetching,
+    isError,
+    error,
+  } = useGetPropertyDetails(id);
+
+  if (isError) {
+    console.log(error);
+  }
+
+  const handleToggleCompare = () => {
+    const propData = {
+      id: data.id,
+      img: (data.images[0] ? data.images[0]?.thumbnail || "" : "")
+        .split("/")
+        .at(-1),
+      url: data?.url,
+      title: data.project_name,
+      desc: `₹ ${formatNumber(data?.exp_price || data?.monthly_rent || 0)} ${
+        data?.monthly_rent ? "/ month" : ""
+      }`,
+    };
+    dispatch(toggleCompare(propData));
+  };
+
+  const handleChangeShortlist = (item) => {
+    dispatch(shortlistToggle(item));
+    dispatch(toggleShortlist({ id: item.id }));
+    setData({ ...data, isShortlisted: !data?.isShortlisted });
+  };
+
+  const fetchAds = async () => {
+    try {
+      const res = await call(getAds(1));
+      setAds(res.data);
+    } catch (err) {}
+  };
+
+  const fetchSimilarProperty = async (id) => {
+    try {
+      const res = await call(getSimilarProperty(id));
+      setSimilarProperty(res.data);
+    } catch (err) {}
+  };
+
+  const handleScroll = () => {
+    const sectionOffsets = sectionNames.map((section) => {
+      const element = document.getElementById(section.replace(" ", ""));
+      return element ? element.offsetTop : 0;
+    });
+
+    const scrollTop = window.scrollY;
+    const scrollPosition = scrollTop + window.innerHeight * 0.25;
+    let activeSection = 0;
+
+    for (let i = sectionOffsets.length - 1; i >= 0; i--) {
+      if (scrollPosition >= sectionOffsets[i]) {
+        activeSection = i;
+        break;
+      }
+    }
+
+    setActiveSection(activeSection);
+  };
+
+  const scrollToSection = (section) => {
+    const sectionElement = document.getElementById(section);
+    if (sectionElement) {
+      const scrollToOffset = sectionElement.offsetTop - 150;
+      window.scrollTo({ top: scrollToOffset, behavior: "smooth" });
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const updateData = async () => {
+    data.amenities.length > 0 && sectionNames.push("Features");
+
+    try {
+      fetchSimilarProperty(data.id);
+      const res = await call(addViewedData({ propId: data.id }));
+      setData((prev) => {
+        return { ...prev, isShortlisted: res?.isShortlisted || false };
+      });
+    } catch (err) {}
+  };
+
+  useEffect(() => {
+    data?.id && updateData();
+  }, [data]);
+
+  useEffect(() => {
+    fetchAds();
+  }, []);
+
+  const nearByMap = useMemo(() => {
+    return data?.latitude && data?.longitude ? (
+      <div className="prop-map-con">
+        <NearByPlace location={{ lat: data.latitude, lng: data.longitude }} />
+      </div>
+    ) : null;
+  }, [data]);
+
+  return loading ? (
+    <DataLoading />
+  ) : data ? (
     <div className="property-detail-con">
-      <StickyNav />
+      <div className="prop-d-sticky-header">
+        <div className="prop-d-com-header">
+          {sectionNames.map((section, index) => (
+            <div
+              key={index}
+              className={
+                activeSection === index
+                  ? "prop-d-header-item active"
+                  : "prop-d-header-item"
+              }
+              onClick={() => scrollToSection(section.replace(" ", ""))}
+            >
+              {section}
+            </div>
+          ))}
+        </div>
+      </div>
 
       <div className="max-width prop-box">
         <div className="prop-left-side">
@@ -52,7 +216,7 @@ const Property = ({ data }) => {
                 )}{" "}
                 {data?.bedroom && data?.bedroom + " BHK, "}{" "}
                 {data?.property_type} in {data?.locality}, {data?.city} in ₹{" "}
-                {/* {formatNumber(data?.exp_price || data?.monthly_rent || 0)} */}
+                {formatNumber(data?.exp_price || data?.monthly_rent || 0)}
                 {data?.monthly_rent ? <small> / month</small> : ""}
               </h4>
               {data?.rera_id && (
@@ -65,15 +229,14 @@ const Property = ({ data }) => {
               <span
                 className="share-icon"
                 title="Share"
-                onClick={() => {}}
-                /* onClick={() => 
+                onClick={() =>
                   dispatch(
                     setShare({
                       open: true,
                       url: data?.url,
                     })
                   )
-                } */
+                }
               >
                 {icons.share}
               </span>
@@ -84,8 +247,7 @@ const Property = ({ data }) => {
                     ? "Remove from shortlist"
                     : "Add to shortlist"
                 }
-                onClick={() => {}}
-                // onClick={() => handleChangeShortlist(data)}
+                onClick={() => handleChangeShortlist(data)}
               >
                 {data?.isShortlisted ? icons.starFilled : icons.star}
               </span>
@@ -98,7 +260,7 @@ const Property = ({ data }) => {
                     ? "Remove from compare"
                     : "Add to compare"
                 }
-                // onClick={handleToggleCompare}
+                onClick={handleToggleCompare}
               >
                 {icons.compare}
               </span>
@@ -106,22 +268,19 @@ const Property = ({ data }) => {
           </div>
 
           <div className="prop-slider">
-            {/* <ImageGallery
-                items={data.images}
-                showPlayButton={true}
-                showFullscreenButton={true}
-                slideInterval={3000}
-                slideOnThumbnailOver={true}
-                // onErrorImageURL={images.noImage}
-                disableSwipe={false}
-              /> */}
+            <ImageGallery
+              items={data.images}
+              showPlayButton={true}
+              showFullscreenButton={true}
+              slideInterval={3000}
+              slideOnThumbnailOver={true}
+              // onErrorImageURL={images.noImage}
+              disableSwipe={false}
+            />
           </div>
 
           {data?.brochure && (
-            <a
-              // href={propertyBrochure(data.brochure)}
-              target="_blank"
-            >
+            <a href={propertyBrochure(data.brochure)} target="_blank">
               <Button sx={{ mt: 3 }} variant="contained">
                 Download Brochure
               </Button>
@@ -193,23 +352,7 @@ const Property = ({ data }) => {
               }`.trim()}
             </div>
 
-            {data?.latitude && data?.longitude && (
-              <div className="prop-map-con">
-                {/* <MapGoogle
-                    mapContainerStyle={{
-                      height: "300px",
-                      width: "100%",
-                    }}
-                    hideCurrentLocation={true}
-                    zoom={12}
-                    center={{ lat: data.latitude, lng: data.longitude }}
-                  >
-                    <Marker
-                      position={{ lat: data.latitude, lng: data.longitude }}
-                    />
-                  </MapGoogle> */}
-              </div>
-            )}
+            {nearByMap}
           </div>
 
           <div className="prop-section prop-details" id="MoreDetails">
@@ -263,7 +406,10 @@ const Property = ({ data }) => {
               {detail("Is Corner Plot", data?.corner)}
               {detail("Listing Type", data?.transaction_type)}
               {detail("Property Status", data?.prop_availability)}
-              {detail("Possession Starts", `2025`)}
+              {detail(
+                "Possession Starts",
+                `${moment(data?.avai_from_year).format("MMM YYYY")}`
+              )}
               {detail("Age Of Construction", data?.age_of_con)}
               {detail("Expected Price", data?.exp_price)}
               {detail("Price Per Sqft", data?.price_per)}
@@ -353,7 +499,7 @@ const Property = ({ data }) => {
             sx={{ mb: 2 }}
             fullWidth
             variant="contained"
-            // onClick={handleToggleCompare}
+            onClick={handleToggleCompare}
           >
             {compareProperty.includes(data.id)
               ? "Remove from compare"
@@ -368,10 +514,7 @@ const Property = ({ data }) => {
               <p>{data?.mobile}</p>
               <Button
                 variant="contained"
-                onClick={() => {}}
-                /* onClick={() =>
-                    dispatch(setContact({ open: true, data: data }))
-                  } */
+                onClick={() => dispatch(setContact({ open: true, data: data }))}
               >
                 View Number
               </Button>
@@ -379,55 +522,36 @@ const Property = ({ data }) => {
           </div>
           <div className="prop-visit-form">
             <div className="prop-visit-f-title">Schedule Visit</div>
-            {/* <SiteVisitForm propertyId={id} /> */}
+            <SiteVisitForm propertyId={id} />
           </div>
 
           <h3 className="prop-d-ads-title">Trending</h3>
           <div className="prop-ads-wrap">
-            {/* {ads.map((ele, i) => (
-                <AdvertiseCard
-                  key={i}
-                  mobile={true}
-                  data={ele}
-                  hideCompare={true}
-                  hideShortlist={true}
-                />
-              ))} */}
+            {ads.map((ele, i) => (
+              <AdvertiseCard
+                key={i}
+                mobile={true}
+                data={ele}
+                hideCompare={true}
+                hideShortlist={true}
+              />
+            ))}
           </div>
         </div>
       </div>
 
-      {/* {similarProperty.length > 0 && (
-          <div className="max-width" style={{ maxWidth: 1330, padding: 10 }}>
-            <div className="prop-sec-title">Similar Properties</div>
-            <SimilarPropSwiper data={similarProperty} />
-          </div>
-        )} */}
+      {similarProperty.length > 0 && (
+        <div className="max-width" style={{ maxWidth: 1330, padding: 10 }}>
+          <div className="prop-sec-title">Similar Properties</div>
+          <PropertySwiper data={similarProperty} />
+        </div>
+      )}
 
-      {/* <AdvertiseSwiper title="Top Projects" category={2} /> */}
+      <AdvertiseSwiper title="Top Projects" category={2} />
     </div>
+  ) : (
+    <Error />
   );
 };
 
-// export async function getStaticPaths() {
-//   return {
-//     paths: ["/property/2380", "/property/2381"],
-//     fallback: false,
-//   };
-// }
-
-export const getServerSideProps = async (props) => {
-  const response = await fetch(
-    "https://api.housingmagic.com/v1/property/info/" + props.params.slug
-  );
-  const data = await response.json();
-
-  return {
-    props: {
-      data: data.data,
-    },
-    // revalidate: 60,
-  };
-};
-
-export default Property;
+export default PropertyDetail;

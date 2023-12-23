@@ -3,22 +3,21 @@
 import "@/styles/home.css";
 import React, { Suspense, lazy } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useDispatch } from "react-redux";
 import Searchbar from "@/components/Searchbar";
 import Loading from "@/components/Loading";
 import { useGetHomePage } from "@/queryHooks/useHomePage";
+import { setBotOpen } from "@/redux/reducers/botReducer";
 import HomeBannerSwiper from "@/components/Swiper/HomeBannerSwiper";
 import HomeAdsSwiper from "@/components/Swiper/HomeAdsSwiper";
-import { setBotOpen } from "@/redux/reducers/botReducer";
-import Image from "next/image";
-
-// const RentSaleProp = lazy(() => import("./RentSaleProp"));
-// const DemoDesign = lazy(() => import("./DemoDesign"));
-// const Recommendation = lazy(() => import("./Recommendation"));
-// const FeaturedTools = lazy(() => import("../tools/FeaturedTools"));
-// const AdvertiseSwiper = lazy(() =>
-//   import("../../components/Swiper/AdvertiseSwiper")
-// );
+const HowItWork = lazy(() => import("./HowItWork"));
+const FeaturedTools = lazy(() => import("./FeaturedTools"));
+const RentSaleProp = lazy(() => import("./RentSaleProp"));
+const Recommendation = lazy(() => import("./Recommendation"));
+const AdvertiseSwiper = lazy(() =>
+  import("@/components/Swiper/AdvertiseSwiper")
+);
 
 const Home = ({ recentLaunch }) => {
   const dispatch = useDispatch();
@@ -70,16 +69,16 @@ const Home = ({ recentLaunch }) => {
         </div>
       )}
 
-      <Suspense fallback={<></>}>
-        {/* <RentSaleProp />
+      <Suspense fallback={null}>
+        <RentSaleProp />
 
-        <DemoDesign />
+        <HowItWork />
 
         <Recommendation />
 
         <FeaturedTools />
 
-        <AdvertiseSwiper title="Trending Projects" category={1} /> */}
+        <AdvertiseSwiper title="Trending Projects" category={1} />
 
         <div className="home-section-pp max-width">
           <div
@@ -155,10 +154,6 @@ const Home = ({ recentLaunch }) => {
                 />
               </div>
               <h3 className="mt-5">Trusted by thousands</h3>
-              {/* <p>
-              Lorem ipsum suspendisse ultrices gravida. Risus commodo viverra
-              maecenas accumsan.
-            </p> */}
             </div>
             <div className="single-featured-box">
               <div className="icon color-1ac0c6">
@@ -171,10 +166,6 @@ const Home = ({ recentLaunch }) => {
                 />
               </div>
               <h3 className="mt-5">Financing made easy</h3>
-              {/* <p>
-              Lorem ipsum suspendisse ultrices gravida. Risus commodo viverra
-              maecenas accumsan.
-            </p> */}
             </div>
             <div className="single-featured-box">
               <div className="icon">
@@ -187,7 +178,6 @@ const Home = ({ recentLaunch }) => {
                 />
               </div>
               <h3 className="mt-5">End to End Solutions</h3>
-              {/* <p>Other paid services. Legal,Register, Documentation etc..</p> */}
             </div>
           </div>
         </section>

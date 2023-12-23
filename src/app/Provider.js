@@ -6,7 +6,7 @@ import { ToastContainer } from "react-toastify";
 import store from "@/redux/store";
 import Auth from "@/components/Auth";
 import Authentication from "./auth/Authentication";
-// import Bot from "@/Bot/Bot";
+import Bot from "@/Bot/Bot";
 import Logout from "@/components/Logout";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -41,7 +41,7 @@ const RootProvider = ({ children }) => {
         <ExtraDetailForm />
         <CompareSticky />
         <ScrollTop />
-        {/* <Bot /> */}
+        <Bot />
       </Provider>
     </QueryClientProvider>
   );

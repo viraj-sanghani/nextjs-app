@@ -4,13 +4,11 @@ import "@/styles/compare.css";
 import "@/styles/swiper.min.css";
 import "@/styles/navigation.css";
 import RootProvider from "./Provider";
+import generateMetadata from "@/utils/metadata";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
-  title: "Housing Magic",
-  description: "",
-};
+export const metadata = generateMetadata("home");
 
 const RootLayout = ({ children }) => {
   return (

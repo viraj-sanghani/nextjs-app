@@ -10,7 +10,7 @@ export default function E404() {
         src="/img/404.svg"
         alt="Page not found"
         className="img-404"
-        height={400}
+        height={300}
         width={400}
       />
       <Link href={{ pathname: "/" }}>

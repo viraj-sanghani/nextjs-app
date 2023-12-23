@@ -2,7 +2,7 @@ import axios from "axios";
 import moment from "moment";
 import React, { useEffect, useState } from "react";
 import Loading from "@/components/Loading";
-// import BotSwiper from "@/components/Swiper/BotSwiper";
+import BotSwiper from "@/components/Swiper/BotSwiper";
 
 function Property({ align, icon, item }) {
   const [data, setData] = useState([]);
@@ -11,7 +11,7 @@ function Property({ align, icon, item }) {
   const getData = async () => {
     try {
       const { data } = await axios.post(
-        `${import.meta.env.VITE_API}/${item.url}`,
+        `${process.env.NEXT_PUBLIC_API}/${item.url}`,
         item.params
       );
       Array.isArray(data.data) && setData(data.data);
@@ -38,7 +38,7 @@ function Property({ align, icon, item }) {
           )}
           {!loading &&
             (data.length > 0 ? (
-              <></> //<BotSwiper data={data} />
+              <BotSwiper data={data} />
             ) : (
               <div
                 className="no-data"

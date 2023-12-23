@@ -20,7 +20,12 @@ const HomeBannerSwiper = ({ data }) => {
   }, []);
 
   return (
-    <SwiperComp slidesPerView={1} loop={true} autoplay={{ delay: 3000 }}>
+    <SwiperComp
+      slidesPerView={1}
+      loop={true}
+      autoplay={{ delay: 3000 }}
+      // className="banner-swiper-com"
+    >
       {data.map((img, i) => (
         <SwiperSlide key={i}>
           <a href={img?.redirect} target="_blank">

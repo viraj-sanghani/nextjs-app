@@ -1,6 +1,6 @@
 "use client";
 
-import "./style.css";
+import "@/styles/bot.css";
 import React from "react";
 import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";

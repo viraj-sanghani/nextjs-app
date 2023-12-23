@@ -57,7 +57,7 @@ function CompareSticky() {
     if (compareList.length < 2)
       return error("Minimum 2 property required for comparison");
     handleOpen(false);
-    router.push("/compare-properties");
+    router.push("/compare");
   };
 
   return (

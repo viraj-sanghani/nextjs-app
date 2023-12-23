@@ -26,10 +26,13 @@ pages
   account
   activity
   auth
+  blog
   chatbot
   compare
+  home
   info
   support
+  tools
 queryHooks
   useSearchSuggestion
   useGetCompareProperty
@@ -44,14 +47,38 @@ pending
 =========
 components
   GoogleMap
-  Swiper
 pages
-  blog
-  home
   property
   searchResult
-  tools
-bot/chat/property => swiper 
+Swiper => mapSwiper
 utils/validation => step1FormFields
 auth => socialAuth
 component/SiteVisitForm => datePicker
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export async function generateMetadata({params, searchParams}, parent){
+  const blogId = (params.blogId || "").split("-").at(-1);
+  console.log(blogId,"bl")
+  const res = await call(getBlogDetail(blogId));
+  console.log(res,"response:::::")
+  return medataData(
+    res.data
+  )
+}
+
+export default medataData
