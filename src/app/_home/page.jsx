@@ -7,7 +7,6 @@ import Image from "next/image";
 import { useDispatch } from "react-redux";
 import Searchbar from "@/components/Searchbar";
 import Loading from "@/components/Loading";
-import { useGetHomePage } from "@/queryHooks/useHomePage";
 import { setBotOpen } from "@/redux/reducers/botReducer";
 import HomeBannerSwiper from "@/components/Swiper/HomeBannerSwiper";
 import HomeAdsSwiper from "@/components/Swiper/HomeAdsSwiper";
@@ -19,9 +18,8 @@ const AdvertiseSwiper = lazy(() =>
   import("@/components/Swiper/AdvertiseSwiper")
 );
 
-const Home = ({ recentLaunch }) => {
+const Home = ({ data }) => {
   const dispatch = useDispatch();
-  const { data, isLoading: loading, isFetching } = useGetHomePage();
 
   return (
     <div style={{ marginTop: -70 }}>
@@ -54,14 +52,14 @@ const Home = ({ recentLaunch }) => {
         </div>
       </div>
 
-      {recentLaunch.length > 0 ? (
+      {data.recentLaunch.length > 0 ? (
         <>
           <div className="s-section-title max-width">
             <h3>Recent</h3>
             <h2>Launches</h2>
           </div>
 
-          <HomeAdsSwiper data={recentLaunch} />
+          <HomeAdsSwiper data={data.recentLaunch} />
         </>
       ) : (
         <div className="data-loader">

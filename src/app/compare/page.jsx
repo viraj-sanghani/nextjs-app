@@ -3,14 +3,15 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { useDispatch, useSelector } from "react-redux";
-import Sticky from "react-stickynode";
 import { Button } from "@mui/material";
 import DataLoading from "@/components/DataLoading";
 import { useGetCompareProperty } from "@/queryHooks/useGetCompareProperty";
 import { removeFromCompare } from "@/redux/reducers/activityReducer";
 import icons from "@/utils/icons";
 import HtmlToPdf from "@/components/HtmlToPdf";
+const Sticky = dynamic(() => import("react-stickynode"));
 
 function Compare() {
   const dispatch = useDispatch();

@@ -1,18 +1,28 @@
+import { cache } from "react";
 import Home from "./_home/page";
-import { call, getAds } from "@/services/api";
+import {
+  call,
+  getHomePageBanners,
+  getHomePageData,
+  getAds,
+} from "@/services/api";
 
-const fetchRecentProp = async () => {
-  try {
-    const res = await call(getAds(1));
-    return res.data;
-  } catch (err) {
-    return [];
-  }
-};
+export const getHomeDetail = cache(async () => {
+  const [homeBanners, homeData, recentLaunch] = await Promise.all([
+    call(getHomePageBanners()),
+    call(getHomePageData()),
+    call(getAds(1)),
+  ]);
+  return {
+    ...homeData.data,
+    homeBanners: homeBanners.data,
+    recentLaunch: recentLaunch.data,
+  };
+});
 
 const page = async () => {
-  const recentProp = await fetchRecentProp();
-  return <Home recentLaunch={recentProp} />;
+  const data = await getHomeDetail();
+  return <Home data={data} />;
 };
 
 export default page;

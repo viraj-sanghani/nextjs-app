@@ -1,14 +1,14 @@
-import { Inter } from "next/font/google";
+import { Open_Sans } from "next/font/google";
 import "@/styles/app.css";
 import "@/styles/compare.css";
 import "@/styles/swiper.min.css";
 import "@/styles/navigation.css";
 import RootProvider from "./Provider";
-import generateMetadata from "@/utils/metadata";
+import generateMeta from "@/utils/metadata";
 
-const inter = Inter({ subsets: ["latin"] });
+const open_sans = Open_Sans({ subsets: ["latin"] });
 
-export const metadata = generateMetadata("home");
+export const metadata = generateMeta("home");
 
 const RootLayout = ({ children }) => {
   return (
@@ -24,7 +24,7 @@ const RootLayout = ({ children }) => {
           href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&family=Source+Sans+Pro:wght@200&display=swap"
         />
       </head>
-      <body className={inter.className}>
+      <body className={open_sans.className}>
         <RootProvider>{children}</RootProvider>
       </body>
     </html>

@@ -131,6 +131,11 @@ function Map(props) {
     handleCurLocation(coords);
   };
 
+  const customIcon = new L.Icon({
+    iconUrl: "/marker-icon.png",
+    iconSize: [25, 41],
+  });
+
   return (
     <div
       ref={conRef}
@@ -201,10 +206,15 @@ function Map(props) {
         <MemoizedMapSearch searchQuery={searchQuery} />
 
         {currentLocation && !hideCurLocationIcon && (
-          <Marker position={[currentLocation.lat, currentLocation.lng]} />
+          <Marker
+            position={[currentLocation.lat, currentLocation.lng]}
+            icon={customIcon}
+          />
         )}
 
-        {pinnedLocation && <Marker position={pinnedLocation} />}
+        {pinnedLocation && (
+          <Marker position={pinnedLocation} icon={customIcon} />
+        )}
 
         {circleLocation && circleRadius && (
           <Circle

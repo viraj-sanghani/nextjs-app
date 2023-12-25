@@ -3380,7 +3380,10 @@ button {
   margin-top: 25px;
   line-height: 25px;
   font-size: 15px;
-  font-family: "Roboto";
+  font-weight: 500;
+  letter-spacing: 0.4px;
+  text-align: justify;
+  /* font-family: "Roboto"; */
 }
 
 .prod-features-con {

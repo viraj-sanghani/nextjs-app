@@ -156,7 +156,7 @@ export const metadata = {
   },
 };
 
-const generateMetadata = (data) => {
+const generateMeta = (data) => {
   if (typeof data === "string") {
     const d = metadata[data];
     return {
@@ -181,19 +181,19 @@ const generateMetadata = (data) => {
       metadataBase: new URL(
         "https://trackerweblord.s3.ap-south-1.amazonaws.com/"
       ),
-      title: data.meta_title,
-      keyword: data.meta_keyword,
-      description: data.meta_desc,
-      url: data.meta_url,
+      title: data?.meta_title,
+      keyword: data?.meta_keyword,
+      description: data?.meta_desc,
+      url: data?.meta_url,
       openGraph: {
         siteName: "Housing Magic",
-        title: data.meta_title,
-        keyword: data.meta_keyword,
-        description: data.meta_desc,
-        url: data.meta_url,
-        images: d.image,
+        title: data?.meta_title,
+        keyword: data?.meta_keyword,
+        description: data?.meta_desc,
+        url: data?.meta_url,
+        images: data?.image,
       },
     };
 };
 
-export default generateMetadata;
+export default generateMeta;
