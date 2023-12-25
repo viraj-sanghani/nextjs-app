@@ -132,7 +132,7 @@ function Map(props) {
   };
 
   const customIcon = new L.Icon({
-    iconUrl: "/marker-icon.png",
+    iconUrl: "/img/marker-icon.png",
     iconSize: [25, 41],
   });
 

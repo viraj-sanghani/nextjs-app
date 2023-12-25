@@ -3959,23 +3959,19 @@ button {
   min-height: 100vh;
 }
 .blog-wrap {
-  max-width: 1300px;
-  margin: auto;
-  padding: 20px;
 }
 .blog-image-wrap {
   background: var(--img-bg);
   height: 350px;
-  border-radius: 10px;
-  overflow: hidden;
 }
-.blog-image-wrap span,
-.blog-image-wrap span img {
+.blog-image-wrap img {
   height: 100%;
   width: 100%;
   object-fit: cover;
 }
 .blog-content-wrap {
+  max-width: 1300px;
+  margin: auto;
   padding: 20px;
   display: flex;
   gap: 40px;

@@ -101,6 +101,9 @@ const Home = ({ data }) => {
         </div>
 
         <div className="chatbot-section">
+          <div className="chatbot-section-bg">
+            <Image src={"/img/chatbot-bg.webp"} height={400} width={1300} />
+          </div>
           <div className="chatbot-content max-width">
             <div className="chatbot-title">
               <span className="chatbot-label">Welcome to </span>
