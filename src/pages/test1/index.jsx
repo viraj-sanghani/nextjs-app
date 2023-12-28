@@ -65,11 +65,14 @@ function page({ data }) {
 
 export const getStaticProps = async () => {
   // Fetch products from your API
-  const response = await fetch("http://localhost:5000/v1/property/home", {
-    next: {
-      revalidate: 60,
-    },
-  });
+  const response = await fetch(
+    "https://api.housingmagic.com/v1/property/home",
+    {
+      next: {
+        revalidate: 60,
+      },
+    }
+  );
   const data = await response.json();
 
   return {
