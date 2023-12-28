@@ -1,0 +1,133 @@
+.image-gallery-wrap {
+  background: black;
+  height: 100dvh;
+  width: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: 1000;
+}
+
+.image-gallery-header {
+  height: 100px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 15px 0 30px;
+  border-bottom: 1px solid lightblue;
+}
+.image-gallery-header h2 {
+  font-size: 20px;
+  width: calc(100% - 110px);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.gallery-share-btn {
+  position: absolute;
+  top: 15px;
+  right: 70px;
+  color: #fff;
+  font-size: 22px;
+  padding: 5px;
+  cursor: pointer;
+}
+.gallery-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #fff;
+  font-size: 30px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.image-category-items {
+  height: 50px;
+  width: 90%;
+  margin: auto;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  font-size: 17px;
+  overflow: auto;
+}
+.image-category-item {
+  color: white;
+  padding: 10px 0;
+  text-wrap: nowrap;
+  cursor: pointer;
+}
+.image-category-item:hover {
+  color: #004e8f;
+}
+.image-category-item.selected {
+  border-bottom: 3px solid orange;
+}
+
+.image-gallery-current-slide {
+  position: absolute;
+  background: #000;
+  color: #fff;
+  right: 0;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 1;
+}
+
+.image-gallery-slides {
+  align-items: center;
+}
+.image-gallery-image {
+  height: calc(100vh - 250px) !important;
+}
+.image-gallery.hide-thumbnail .image-gallery-image {
+  height: calc(100vh - 200px) !important;
+}
+
+.image-gallery-thumbnails-container {
+  height: 80px;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+}
+.image-gallery-thumbnail {
+  height: 100%;
+}
+.image-gallery-thumbnail .image-gallery-thumbnail-inner {
+  height: 100%;
+  width: 100%;
+}
+.image-gallery-thumbnail .image-gallery-thumbnail-image {
+  vertical-align: middle;
+  width: 100%;
+  line-height: 0;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-gallery-btn-wrap {
+  position: absolute;
+  bottom: 90px;
+  right: 20px;
+  display: flex;
+  gap: 10px;
+  z-index: 1;
+}
+.image-gallery.hide-thumbnail + .image-gallery-btn-wrap {
+  bottom: 20px;
+}
+.image-gallery-btn {
+  font-size: 36px;
+  color: white;
+  cursor: pointer;
+}
+.image-gallery-btn:hover {
+  color: #004e8f;
+}

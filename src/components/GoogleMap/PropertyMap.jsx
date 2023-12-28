@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
+"use client";
+
+import { useState, useEffect } from "react";
 import { MarkerF, InfoWindow, MarkerClusterer } from "@react-google-maps/api";
-import MapGoogle from "./MapGoogle";
 import { useSelector } from "react-redux";
-// import Sticky from "react-stickynode";
 import { Button } from "@mui/material";
-import MapSwiper from "../Swiper/MapSwiper";
-import ResultHeader from "../../pages/searchResult/ResultHeader";
+import MapGoogle from "./MapGoogle";
+import MapSwiper from "@/components/Swiper/MapSwiper";
+import ResultHeader from "@/app/search/ResultHeader";
 
 const clusterStyles = [
   {
@@ -26,7 +27,9 @@ const clusterImg =
 
 function PropertyMap() {
   const [infoOpen, setInfoOpen] = useState(false);
-  const { properties } = useSelector((state) => state.filter);
+  const { properties, isFetching, viewType } = useSelector(
+    (state) => state.filter
+  );
   const { activePropOnMap } = useSelector((state) => state.app);
   const [center, setCenter] = useState(null);
   const [current, setCurrent] = useState(-1);
@@ -146,19 +149,19 @@ function PropertyMap() {
   }
 
   return (
-    <div className="property-map">
+    <div className={`property-map ${viewType === "map" ? "show" : ""}`}>
       <ResultHeader />
-      <MapGoogle
-        zoom={zoom}
-        mapContainerStyle={{
-          height: "inherit",
-          width: "100%",
-        }}
-        onCurLocation={(coords) => setCenter(coords)}
-        center={center || { lat: 22, lng: 75 }}
-        onClick={hideMarkerHandler}
-      >
-        {properties && (
+      {!isFetching && properties && properties.length > 0 ? (
+        <MapGoogle
+          zoom={zoom}
+          mapContainerStyle={{
+            height: "inherit",
+            width: "100%",
+          }}
+          onCurLocation={(coords) => setCenter(coords)}
+          center={center || { lat: 22, lng: 75 }}
+          onClick={hideMarkerHandler}
+        >
           <MarkerClusterer
             options={{
               imagePath: clusterImg,
@@ -181,48 +184,56 @@ function PropertyMap() {
               })
             }
           </MarkerClusterer>
-        )}
 
-        {infoOpen &&
-          activeMarkers &&
-          activeMarkers[0] &&
-          activeMarkers[0].latitude &&
-          activeMarkers[0].longitude && (
-            <InfoWindow
-              // anchor={markerMap[selectedPlace.id]}
+          {infoOpen &&
+            activeMarkers &&
+            activeMarkers[0] &&
+            activeMarkers[0].latitude &&
+            activeMarkers[0].longitude && (
+              <InfoWindow
+                // anchor={markerMap[selectedPlace.id]}
 
-              position={{
-                lat: activeMarkers[0]?.latitude,
-                lng: activeMarkers[0]?.longitude,
-              }}
-              onCloseClick={() => setInfoOpen(false)}
-            >
-              <MapSwiper
-                data={activeMarkers}
-                mobile={true}
-                hideShare={true}
-                hideShortlist={true}
-              />
-            </InfoWindow>
-          )}
+                position={{
+                  lat: activeMarkers[0]?.latitude,
+                  lng: activeMarkers[0]?.longitude,
+                }}
+                onCloseClick={() => setInfoOpen(false)}
+              >
+                <MapSwiper
+                  data={activeMarkers}
+                  mobile={true}
+                  hideShare={true}
+                  hideShortlist={true}
+                />
+              </InfoWindow>
+            )}
 
-        <Button
-          variant="outlined"
-          className="map-btn prev-prop-btn"
-          onClick={() => handleNavigationClick("prev")}
-          title="Current Location"
-        >
-          Prev
-        </Button>
-        <Button
-          variant="outlined"
-          className="map-btn next-prop-btn"
-          onClick={() => handleNavigationClick("next")}
-          title="Current Location"
-        >
-          Next
-        </Button>
-      </MapGoogle>
+          <Button
+            variant="outlined"
+            className="map-btn prev-prop-btn"
+            onClick={() => handleNavigationClick("prev")}
+            title="Current Location"
+          >
+            Prev
+          </Button>
+          <Button
+            variant="outlined"
+            className="map-btn next-prop-btn"
+            onClick={() => handleNavigationClick("next")}
+            title="Current Location"
+          >
+            Next
+          </Button>
+        </MapGoogle>
+      ) : (
+        <div
+          style={{
+            height: "inherit",
+            width: "100%",
+            background: "var(--img-bg)",
+          }}
+        ></div>
+      )}
     </div>
   );
 }

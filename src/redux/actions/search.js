@@ -1,6 +1,6 @@
 import { addProperties, setPropertyData } from "@/redux/reducers/filterReducer";
 import { addSearchData, call, getFilterData } from "@/services/api";
-import { store } from "@/redux/store";
+import store from "@/redux/store";
 
 export const fetchSearchData = (data) => async (dispatch) => {
   try {

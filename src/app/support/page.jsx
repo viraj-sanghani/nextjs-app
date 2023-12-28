@@ -1,182 +1,162 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { Button, TextField, InputLabel } from "@mui/material";
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TablePagination from "@mui/material/TablePagination";
+import TableRow from "@mui/material/TableRow";
+import Button from "@mui/material/Button";
+import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
-import { useForm } from "@/components/CustomHook";
-import validate from "@/utils/validation";
-import icons from "@/utils/icons";
 import DataLoading from "@/components/DataLoading";
-import Alert from "@/components/Alert";
-import { error } from "@/components/Toast";
-import Loading from "@/components/Loading";
-import { call, createTicket } from "@/services/api";
+import { call, getTickets } from "@/services/api";
 import { setAuthModel } from "@/redux/reducers/authReducer";
 
-function Form() {
-  const router = useRouter();
+const columns = [
+  { key: "ticketId", label: "#Ticket Id", minWidth: 100 },
+  { key: "subject", label: "Subject", minWidth: 200 },
+  { key: "issue", label: "Issue", minWidth: 300 },
+  { key: "name", label: "Name", minWidth: 150 },
+  { key: "email", label: "Email", minWidth: 200 },
+  { key: "createdAt", label: "Created on", minWidth: 140 },
+  { key: "status", label: "Status", minWidth: 130 },
+];
+
+const status = {
+  Pending: "#B70404",
+  "In Progress": "#FFA500",
+  "On Hold": "#FFD700",
+  Resolved: "#008000",
+  Closed: "#808080",
+};
+
+function TicketList() {
   const dispatch = useDispatch();
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [data, setData] = useState([]);
   const { isVerify, isLoggedIn } = useSelector((state) => state.auth);
-  const [openSuccess, setOpenSuccess] = useState(false);
-  const [files, setFiles] = useState(null);
+  const loading = false;
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
 
-  const handleSubmit = async (
-    values,
-    { setSubmitting, setErrors, resetForm }
-  ) => {
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
+  const fetchData = async () => {
     try {
-      const data = new FormData();
-      for (const key in values) {
-        data.append(key, values[key]);
-      }
-      if (files) {
-        for (let i = 0; i < files.length; i++) {
-          data.append("files", files[i]);
-        }
-      }
-      const res = await call(createTicket(data));
-      setOpenSuccess(true);
-      resetForm();
+      const res = await call(getTickets());
+      setData(res.data);
     } catch (err) {
-      setErrors(err);
+      console.log(err);
     }
-    setSubmitting(false);
   };
 
-  const handleFileUpload = (e) => {
-    const validFiles = [];
-    const file = e.target.files;
-    const validExt = ["jpg", "jpeg", "png", "xls", "txt", "doc", "pdf"];
-
-    Object.values(file).forEach((ele) => {
-      if (validExt.includes(ele.name.split(".").pop())) {
-        validFiles.push(ele);
-      } else {
-        error(`Invalid File Formate ${ele.name}`);
-      }
-    });
-
-    setFiles(validFiles);
-  };
-
-  const form = useForm({
-    initial: {
-      subject: "",
-      name: "",
-      email: "",
-      issue: "",
-    },
-    schema: validate.supportSchema,
-    callback: handleSubmit,
-  });
+  useEffect(() => {
+    isLoggedIn && fetchData();
+  }, [isLoggedIn]);
 
   return !isVerify ? (
     <DataLoading />
   ) : isLoggedIn ? (
-    <>
-      <div className="support-con">
-        <div className="support-img">
-          <Image
-            src="/img/support.svg"
-            height={400}
-            width={400}
-            alt="Support"
-          />
-        </div>
-        <div className="support-form-con">
-          <div className="support-page-title">
-            <h2>{icons.support} New Ticket</h2>
-          </div>
-
-          <form className="support-form" onSubmit={form.handleSubmit}>
-            <TextField
-              fullWidth
-              label="Subject"
-              name="subject"
-              variant="outlined"
-              value={form.values.subject}
-              onChange={form.handleChange}
-              helperText={form.errors.subject}
-            />
-
-            <div className="support-flex">
-              <TextField
-                fullWidth
-                label="Name"
-                name="name"
-                value={form.values.name}
-                onChange={form.handleChange}
-                helperText={form.errors.name}
-              />
-
-              <TextField
-                fullWidth
-                label="Email"
-                name="email"
-                value={form.values.email}
-                onChange={form.handleChange}
-                helperText={form.errors.email}
-              />
-            </div>
-
-            <InputLabel>
-              <small>File Format : .jpeg, .png, .pdf, .doc, .txt, .xls</small>
-            </InputLabel>
-            <TextField
-              fullWidth
-              type="file"
-              name="file"
-              inputProps={{
-                multiple: true,
-              }}
-              onChange={handleFileUpload}
-            />
-
-            <InputLabel id="Issue">Elaborate your issue</InputLabel>
-
-            <TextField
-              rows={4}
-              multiline={true}
-              fullWidth
-              label="Elaborate your issue"
-              name="issue"
-              value={form.values.issue}
-              onChange={form.handleChange}
-              helperText={form.errors.issue}
-            />
-
-            <Button
-              className="btn btn-1 mt-2"
-              variant="contained"
-              size="large"
-              type="submit"
-              disabled={form.isSubmitting}
-            >
-              {form.isSubmitting ? <Loading color="#FFF" /> : "Submit"}
-            </Button>
-          </form>
-        </div>
+    <div>
+      <div className="page-title">
+        <h1>Your Tickets</h1>
       </div>
-
-      <Alert
-        open={openSuccess}
-        handleClose={() => setOpenSuccess(false)}
-        animation="scale"
-        data={{
-          title:
-            "Success! Your support ticket has been created. Our team will review your request and respond as soon as possible. Thank you for reaching out to us!",
-          icon: "success",
-          buttons: [
-            {
-              text: "Okay",
-              callback: () => router.push("/support"),
-            },
-          ],
-        }}
-      />
-    </>
+      <div className="max-width page-content">
+        <div className="new-ticket-btn">
+          <Link href="/support/create-ticket">
+            <Button variant="contained" size="large">
+              Create New Ticket
+            </Button>
+          </Link>
+        </div>
+        {loading ? (
+          <DataLoading />
+        ) : (
+          <div>
+            <Paper sx={{ width: "100%", overflow: "hidden" }}>
+              <TableContainer>
+                <Table stickyHeader aria-label="sticky table">
+                  <TableHead>
+                    <TableRow>
+                      {columns.map((column) => (
+                        <TableCell
+                          key={column.key}
+                          style={{ minWidth: column.minWidth }}
+                        >
+                          <b>{column.label}</b>
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {data
+                      .slice(
+                        page * rowsPerPage,
+                        page * rowsPerPage + rowsPerPage
+                      )
+                      .map((row) => {
+                        return (
+                          <TableRow
+                            hover
+                            role="checkbox"
+                            tabIndex={-1}
+                            key={row.id}
+                          >
+                            <TableCell>
+                              <b>{row.ticketId}</b>
+                            </TableCell>
+                            <TableCell>{row.subject}</TableCell>
+                            <TableCell>
+                              <span
+                                dangerouslySetInnerHTML={{ __html: row.issue }}
+                              />
+                            </TableCell>
+                            <TableCell>{row.name}</TableCell>
+                            <TableCell>{row.email}</TableCell>
+                            <TableCell>
+                              {moment(row.createdAt).format("LLL")}
+                            </TableCell>
+                            <TableCell>
+                              <Button
+                                style={{
+                                  color: status[row.status],
+                                  fontWeight: "600",
+                                }}
+                                size="small"
+                              >
+                                {row.status}
+                              </Button>
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <TablePagination
+                rowsPerPageOptions={[10, 25, 100]}
+                component="div"
+                count={data.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+              />
+            </Paper>
+          </div>
+        )}
+      </div>
+    </div>
   ) : (
     <div
       style={{
@@ -213,4 +193,4 @@ function Form() {
   );
 }
 
-export default Form;
+export default TicketList;

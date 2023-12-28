@@ -2,7 +2,11 @@
 
 import { useState } from "react";
 import dynamic from "next/dynamic";
-const Map = dynamic(() => import("./Map"));
+
+const Map = dynamic(() => import("./Map"), {
+  loading: () => <div className="map-container" style={{ height: 450 }}></div>,
+  ssr: false,
+});
 
 export default function SearchByLocation({ handleLocationChange, radius = 5 }) {
   const [circleLocation, setCircleLocation] = useState(null);
@@ -11,8 +15,6 @@ export default function SearchByLocation({ handleLocationChange, radius = 5 }) {
     setCircleLocation(coords);
     handleLocationChange(coords);
   };
-
-  if (typeof window === "undefined") return null;
 
   return (
     <div style={{ width: "100%", marginBottom: 20 }}>

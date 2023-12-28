@@ -26,7 +26,7 @@ function page({ data }) {
                     "https://trackerweblord.s3.ap-south-1.amazonaws.com/housingmagic/property/small/" +
                     ele.img
                   }
-                  alt=""
+                  alt="property"
                   width="200"
                   height="200"
                   // fit="cover"
@@ -48,7 +48,7 @@ function page({ data }) {
                     "https://trackerweblord.s3.ap-south-1.amazonaws.com/housingmagic/property/small/" +
                     ele.img
                   }
-                  alt=""
+                  alt="property"
                   width="200"
                   height="200"
                   // fit="cover"

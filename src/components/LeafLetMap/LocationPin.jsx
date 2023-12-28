@@ -2,7 +2,11 @@
 
 import { useMemo, useState } from "react";
 import dynamic from "next/dynamic";
-const Map = dynamic(() => import("./Map"));
+
+const Map = dynamic(() => import("./Map"), {
+  loading: () => <div className="map-container" style={{ height: 400 }}></div>,
+  ssr: false,
+});
 
 export default function LocationPin({
   setLocationChange,
@@ -17,7 +21,7 @@ export default function LocationPin({
   };
 
   return useMemo(() => {
-    return typeof window === "undefined" ? null : (
+    return (
       <div style={{ width: "100%", marginBottom: 30 }}>
         <Map
           style={{ height: "400px", width: "100%" }}

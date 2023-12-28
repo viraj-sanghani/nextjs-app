@@ -15,11 +15,11 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-/* import {
+import {
   LocalizationProvider,
   MobileDateTimePicker,
 } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"; */
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import validate from "@/utils/validation";
 import { setAuthModel } from "@/redux/reducers/authReducer";
 import { addSiteVisit, call } from "@/services/api";
@@ -103,7 +103,7 @@ function SiteVisitForm({ propertyId }) {
         helperText={form.touched.email && form.errors.email}
       />
 
-      {/* <FormControl fullWidth margin="normal">
+      <FormControl fullWidth margin="normal">
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <MobileDateTimePicker
             label="Preferred Date & Time"
@@ -115,7 +115,7 @@ function SiteVisitForm({ propertyId }) {
         <FormHelperText>
           {form.touched.dateTime && form.errors.dateTime}
         </FormHelperText>
-      </FormControl> */}
+      </FormControl>
 
       <FormControl fullWidth margin="normal">
         <InputLabel id="alongWith">Along With</InputLabel>

@@ -2077,6 +2077,7 @@ button {
 
 .map-container {
   height: 100%;
+  background: var(--img-bg);
   box-shadow: var(--shadow-md);
   border-radius: 5px;
   overflow: hidden;
@@ -2299,13 +2300,7 @@ button {
 .home-banner-wrap .swiper-slide {
   justify-content: center;
 }
-.home-banner-wrap .swiper-slide span {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-}
-.home-banner-wrap .swiper-slide a,
-.home-banner-wrap .swiper-slide span {
+.home-banner-wrap .swiper-slide a {
   height: 100%;
   width: 100%;
 }
@@ -2319,13 +2314,13 @@ button {
   background: #0250904d;
   z-index: 1;
 } */
-.home-banner-wrap .swiper-slide span img {
+.home-banner-wrap .swiper-slide img {
   height: 100%;
   width: 100%;
   object-fit: cover;
   transition: all 0.4s ease-in-out;
 }
-.home-banner:hover > .home-banner-wrap .swiper-slide span img {
+.home-banner:hover > .home-banner-wrap .swiper-slide img {
   transform: scale(1.03);
 }
 
@@ -2918,9 +2913,13 @@ button {
   background: var(--color-4);
 }
 
+.s-r-wrap {
+  flex-grow: 1;
+}
 .s-r-list-items {
   width: 100%;
   max-width: 700px;
+  margin: auto;
 }
 
 .property-map {
@@ -2957,11 +2956,21 @@ button {
   .s-r-m-btn-label {
     padding: 5px;
   }
+  .s-r-wrap {
+    display: none;
+  }
+  .s-r-wrap.show {
+    display: unset;
+  }
   .property-map {
+    display: none;
     width: 100%;
     height: calc(100dvh - 150px);
     position: relative;
     top: 0;
+  }
+  .property-map.show {
+    display: unset;
   }
 }
 
@@ -3215,31 +3224,21 @@ button {
   align-items: center;
   margin-right: 10px;
 }
-.prop-slider {
-  border-radius: 10px;
-  background: #fff;
-  box-shadow: var(--shadow-sm);
-  overflow: hidden;
-}
-.image-gallery-content .image-gallery-slide .image-gallery-image {
-  height: 400px;
-}
-.image-gallery-content.fullscreen .image-gallery-slide .image-gallery-image {
-  height: unset;
-}
-.image-gallery-thumbnail {
-  max-height: 80px;
-  display: inline-flex !important;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-.image-gallery-swipe {
+
+.prop-image-wrap {
+  height: 500px;
   background: var(--img-bg);
+  box-shadow: var(--shadow-sm);
+  border: 5px solid #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
 }
-.prop-main-img {
-}
-.prop-thmb-img {
+.prop-image-wrap img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
 .prop-map-con {
@@ -3897,8 +3896,7 @@ button {
   border-radius: 5px;
   background: var(--img-bg);
 }
-.blogCardImgHolder span,
-.blogCardImgHolder span img {
+.blogCardImgHolder img {
   height: 100%;
   width: 100%;
   object-fit: cover;

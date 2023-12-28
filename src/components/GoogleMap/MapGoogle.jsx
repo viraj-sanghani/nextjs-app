@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+"use client";
+
+import { useEffect, useState } from "react";
 import { useLoadScript, GoogleMap, Marker } from "@react-google-maps/api";
-import DataLoading from "./../DataLoading";
 import { Button } from "@mui/material";
-import icons from "../../utils/icons";
-import images from "../../utils/images";
+import DataLoading from "./../DataLoading";
+import icons from "@/utils/icons";
+import images from "@/utils/images";
 import { error } from "./../Toast";
 
 const defaultLib = [];
@@ -27,7 +29,7 @@ const options = {
 
 function MapGoogle(props) {
   const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAP_API,
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_API,
     libraries: props?.libraries || defaultLib,
   });
   const [map, setMap] = useState(null);

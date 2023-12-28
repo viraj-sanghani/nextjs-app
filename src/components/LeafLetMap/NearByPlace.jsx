@@ -1,11 +1,12 @@
 "use client";
 
 import dynamic from "next/dynamic";
-const Map = dynamic(() => import("./Map"));
+const Map = dynamic(() => import("./Map"), {
+  loading: () => <div className="map-container" style={{ height: 300 }}></div>,
+  ssr: false,
+});
 
 export default function NearByPlace({ location = null }) {
-  if (typeof window === "undefined") return null;
-
   return (
     <div>
       <Map

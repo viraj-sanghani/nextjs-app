@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /test
+Disallow: /auth/reset-password/
+Disallow: /auth/account-verify/
+Disallow: /edit-property/
+
+Sitemap: https://housingmagic.com/sitemap.xml

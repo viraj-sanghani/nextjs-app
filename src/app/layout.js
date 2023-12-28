@@ -13,17 +13,7 @@ export const metadata = generateMeta("home");
 const RootLayout = ({ children }) => {
   return (
     <html lang="en">
-      <head>
-        <link
-          rel="preload"
-          as="style"
-          href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&family=Source+Sans+Pro:wght@200&display=swap"
-        />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&family=Source+Sans+Pro:wght@200&display=swap"
-        />
-      </head>
+      <head></head>
       <body className={open_sans.className}>
         <RootProvider>{children}</RootProvider>
       </body>

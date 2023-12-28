@@ -9,6 +9,20 @@ import { toggleCompare } from "@/redux/reducers/activityReducer";
 
 function MapCard(props) {
   const dispatch = useDispatch();
+
+  const handleToggleCompare = () => {
+    const data = {
+      id: props.data.id,
+      img: props.data.img,
+      url: props.data?.url,
+      title: props.data.project_name,
+      desc: `₹ ${formatNumber(
+        props.data?.exp_price || props.data?.monthly_rent || 0
+      )} ${props.data?.monthly_rent ? "/ month" : ""}`,
+    };
+    dispatch(toggleCompare(data));
+  };
+
   return (
     props.data && (
       <div
@@ -43,16 +57,7 @@ function MapCard(props) {
                 <span
                   className="compare-icon"
                   title="Compare"
-                  onClick={() =>
-                    dispatch(
-                      toggleCompare({
-                        id: props.data.id,
-                        img: props.data.img,
-                        title: props.data.project_name,
-                        price: 0,
-                      })
-                    )
-                  }
+                  onClick={() => dispatch(handleToggleCompare)}
                 >
                   {icons.compare}
                   {/* {props.data?.isCompare ? icons.compare : icons.compare} */}

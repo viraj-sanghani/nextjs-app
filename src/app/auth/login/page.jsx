@@ -12,7 +12,7 @@ import { useForm } from "@/components/CustomHook";
 import Loading from "@/components/Loading";
 import validate from "@/utils/validation";
 import { setAuthModel, setProfile } from "@/redux/reducers/authReducer";
-// import SocialLogin from "./SocialLogin";
+import SocialLogin from "../SocialLogin";
 
 function Login() {
   const dispatch = useDispatch();
@@ -49,7 +49,7 @@ function Login() {
       <div className="auth-form-con">
         <div className="auth-heading">Sign in to Housingmagic</div>
 
-        {/* <SocialLogin /> */}
+        <SocialLogin />
 
         <div className="auth-or-title">or</div>
         <form className="auth-form" noValidate onSubmit={form.handleSubmit}>

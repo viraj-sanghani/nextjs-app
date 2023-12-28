@@ -71,7 +71,6 @@ export const filterSlice = createSlice({
       state.isDataPending = true;
       state.curPage = action.payload;
       state.curChunk = 0;
-      state.isFetching = true;
     },
     toggleShortlist: (state, action) => {
       state.properties = state.properties.map((ele) => {

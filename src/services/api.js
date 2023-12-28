@@ -145,3 +145,7 @@ export const getAds = (id) => API.get("/ad/" + id);
 // Requirement
 
 export const sendRequirement = (data) => API.post("/requirement/add", data);
+
+// Sitemap
+
+export const getSitemap = () => API.get("/sitemap");

@@ -70,7 +70,7 @@ function CompareSticky() {
               <div className="com-s-prop-list">
                 {compareList.map((ele, i) => (
                   <div className="com-s-prop-item" key={i}>
-                    <Link href={ele?.url} target="_blank">
+                    <Link href={ele?.url || "/"} target="_blank">
                       <div className="com-s-item-img">
                         <Image
                           src={propertySmallImg(ele?.img)}
@@ -80,7 +80,7 @@ function CompareSticky() {
                         />
                       </div>
                     </Link>
-                    <Link href={ele?.url} target="_blank">
+                    <Link href={ele?.url || "/"} target="_blank">
                       <div className="com-s-item-details">
                         <h4>{ele?.title}</h4>
                         <p>{ele?.desc}</p>
@@ -133,12 +133,6 @@ function CompareSticky() {
       </div>
     )
   );
-}
-
-{
-  /* <div className="com-stk-btn" onClick={()=>handleOpen(true)}>
-          Compare ( {compareList.length} )
-        </div> */
 }
 
 export default CompareSticky;

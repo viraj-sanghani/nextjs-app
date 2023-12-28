@@ -13,6 +13,7 @@ const HomeBannerSwiper = ({ data }) => {
   };
 
   useEffect(() => {
+    handleResize();
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -20,12 +21,7 @@ const HomeBannerSwiper = ({ data }) => {
   }, []);
 
   return (
-    <SwiperComp
-      slidesPerView={1}
-      loop={true}
-      autoplay={{ delay: 3000 }}
-      // className="banner-swiper-com"
-    >
+    <SwiperComp slidesPerView={1} loop={true} autoplay={{ delay: 3000 }}>
       {data.map((img, i) => (
         <SwiperSlide key={i}>
           <a href={img?.redirect} target="_blank">
@@ -33,8 +29,8 @@ const HomeBannerSwiper = ({ data }) => {
               src={`${process.env.NEXT_PUBLIC_AWS_URL}/banner/${
                 isDesktop ? "desktop" : "mobile"
               }/${img[isDesktop ? "desktop" : "mobile"]}`}
-              fill={true}
-              objectFit="cover"
+              width={isDesktop ? 1920 : 1024}
+              height={isDesktop ? 300 : 300}
               alt="Banner"
               priority={true}
             />

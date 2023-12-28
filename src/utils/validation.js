@@ -1,7 +1,6 @@
 import * as Yup from "yup";
 import store from "@/redux/store";
-// import { step1FormFields } from "../pages/property/Form";
-const step1FormFields = {};
+import { step1FormFields } from "@/app/post-property/Form";
 
 const validate = {};
 let type, forr;

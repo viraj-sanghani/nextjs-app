@@ -47,30 +47,6 @@ function NearByLocation() {
     } else error("Select location to search");
   };
 
-  // const [open, setOpen] = useState(false);
-  /* useEffect(() => {
-    if (locationOpen && navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        function (position) {
-          dispatch(
-            setLocationResult({
-              lati: position.coords?.latitude,
-              long: position.coords?.longitude,
-            })
-          );
-          history.push(
-            `/search/nearby/location?lat=${position.coords?.latitude}&lng=${position.coords?.longitude}`
-          );
-        },
-        function (error) {
-          setOpen(true);
-        }
-      );
-    } else {
-      setOpen(false);
-    }
-  }, [locationOpen]); */
-
   return (
     <Model
       open={locationOpen}

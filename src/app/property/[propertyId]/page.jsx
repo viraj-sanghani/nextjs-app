@@ -27,18 +27,20 @@ const page = async ({ params }) => {
   const id = (params?.propertyId || "").split("-").at(-1);
   const data = await getPropertyDetail(id);
 
-  const images = data?.images.map((ele) => {
-    return {
-      original: propertyOriginalImg(ele?.img),
-      thumbnail: propertySmallImg(ele?.img),
-      thumbnailLabel: ele?.type,
-    };
+  const mainImage = data?.images.filter((ele) => {
+    return ele.type === "Main Image";
   });
+
+  const image = mainImage[0]
+    ? mainImage[0].img
+    : data.images[0]
+    ? data.images[0].img
+    : "";
 
   const amenities = data?.amenities ? data?.amenities.split(",") : [];
 
   return data ? (
-    <PropertyDetail data={{ ...data, images, amenities }} id={id} />
+    <PropertyDetail data={{ ...data, image, amenities }} id={id} />
   ) : (
     <Error />
   );

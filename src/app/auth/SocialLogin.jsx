@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from "react";
+"use client";
+
+import { useState, useEffect } from "react";
 import { GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import axios from "axios";
-import images from "../../utils/images";
-import Loading from "../../components/Loading";
-import { call, socialLogin } from "../../redux/axios";
-import { error, success } from "../../components/Toast";
+import Loading from "@/components/Loading";
+import { call, socialLogin } from "@/services/api";
+import { error, success } from "@/components/Toast";
 import {
   setAuthModel,
   setDraftData,
   setProfile,
-} from "../../redux/reducers/authReducer";
+} from "@/redux/reducers/authReducer";
 import { useDispatch } from "react-redux";
-import { useHistory, useLocation } from "react-router-dom";
+import { usePathname, useRouter } from "next/navigation";
 
 function Google({ callback }) {
   const [user, setUser] = useState(null);
@@ -74,7 +75,7 @@ function Google({ callback }) {
       ) : (
         <>
           <div className="s-icon-img">
-            <img src={images.google} alt="Google Login" />
+            <img src={"/img/google.png"} alt="Google Login" />
           </div>
           {mes}
         </>
@@ -115,7 +116,7 @@ const Facebook = ({ callback }) => {
 
   return (
     <FacebookLogin
-      appId={import.meta.env.VITE_FACEBOOK_ID}
+      appId={process.env.NEXT_PUBLIC_VITE_FACEBOOK_ID}
       // autoLoad
       callback={handleCallback}
       render={(renderProps) => (
@@ -128,7 +129,7 @@ const Facebook = ({ callback }) => {
           ) : (
             <>
               <div className="s-icon-img">
-                <img src={images.facebook} alt="Facebook Login" />
+                <img src={"/img/fb.png"} alt="Facebook Login" />
               </div>
               {mes}
             </>
@@ -141,9 +142,9 @@ const Facebook = ({ callback }) => {
 
 function SocialLogin() {
   const dispatch = useDispatch();
-  const history = useHistory();
-  const location = useLocation();
-  const [isModal, setIsModal] = useState(location.pathname !== "/auth/login");
+  const router = useRouter();
+  const pathname = usePathname();
+  const [isModal, setIsModal] = useState(pathname !== "/auth/login");
 
   const loginCall = async (data) => {
     try {
@@ -156,16 +157,16 @@ function SocialLogin() {
       );
       if (res?.isloggedIn) {
         success(res.message);
-        dispatch(setProfile(res.data));
+        dispatch(setProfile({ ...res.data, token: res.token }));
         isModal
           ? dispatch(setAuthModel(null))
-          : history.replace(location.state?.redirect || "/");
+          : router.replace(router.query.state?.redirect || "/");
       } else if (res?.isNotVerify) {
         error(res.message);
       } else {
         isModal
           ? dispatch(setDraftData({ model: "register", data: data }))
-          : history.replace({
+          : router.replace({
               pathname: "/auth/register",
               state: { data: data },
             });
@@ -179,7 +180,7 @@ function SocialLogin() {
 
   return (
     <div className="auth-social-btns">
-      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_ID}>
+      <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_ID}>
         <Google callback={loginCall} />
       </GoogleOAuthProvider>
 
