@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { GoogleOAuthProvider, useGoogleLogin } from "@react-oauth/google";
-import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
+// import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import axios from "axios";
 import Loading from "@/components/Loading";
 import { call, socialLogin } from "@/services/api";
@@ -84,7 +84,7 @@ function Google({ callback }) {
   );
 }
 
-const Facebook = ({ callback }) => {
+/* const Facebook = ({ callback }) => {
   const [loading, setLoading] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
   const [mes, setMes] = useState("Continue with Facebook");
@@ -138,7 +138,7 @@ const Facebook = ({ callback }) => {
       )}
     />
   );
-};
+}; */
 
 function SocialLogin() {
   const dispatch = useDispatch();
@@ -184,7 +184,7 @@ function SocialLogin() {
         <Google callback={loginCall} />
       </GoogleOAuthProvider>
 
-      <Facebook callback={loginCall} />
+      {/* <Facebook callback={loginCall} /> */}
     </div>
   );
 }
