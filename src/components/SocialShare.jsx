@@ -10,12 +10,12 @@ import {
   FacebookIcon,
   LinkedinShareButton,
   LinkedinIcon,
-  PinterestShareButton,
-  PinterestIcon,
+  // PinterestShareButton,
+  // PinterestIcon,
   TelegramShareButton,
   TelegramIcon,
-  TwitterShareButton,
-  TwitterIcon,
+  // TwitterShareButton,
+  // TwitterIcon,
   WhatsappShareButton,
   WhatsappIcon,
 } from "react-share";
@@ -61,10 +61,10 @@ const SocialShare = () => {
               <Typography>Facebook</Typography>
             </FacebookShareButton>
 
-            <TwitterShareButton url={shareURL}>
+            {/* <TwitterShareButton url={shareURL}>
               <TwitterIcon round={true} size={50} />
               <Typography>Twitter</Typography>
-            </TwitterShareButton>
+            </TwitterShareButton> */}
 
             <EmailShareButton url={shareURL}>
               <EmailIcon round={true} size={50} />
@@ -86,10 +86,10 @@ const SocialShare = () => {
               <Typography>Whatsapp</Typography>
             </WhatsappShareButton>
 
-            <PinterestShareButton url={shareURL}>
+            {/* <PinterestShareButton url={shareURL}>
               <PinterestIcon round={true} size={50} />
               <Typography>Pinterest</Typography>
-            </PinterestShareButton>
+            </PinterestShareButton> */}
           </div>
           <div className="s-url-container">
             <input value={shareURL} type="text" readOnly={true} />

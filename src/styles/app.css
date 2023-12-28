@@ -3238,7 +3238,7 @@ button {
   height: 100%;
   width: 100%;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 5px;
 }
 
 .prop-map-con {
@@ -3255,12 +3255,17 @@ button {
   box-shadow: var(--shadow-sm);
 }
 
-.p-youtube-v-frame {
-  border: none;
-  height: 400px;
+.p-youtube-v-wrap {
+  margin-top: 20px;
+  /* height: 400px; */
   width: 100%;
   border-radius: 7px;
-  margin-top: 20px;
+  overflow: hidden;
+}
+.p-youtube-v-frame {
+  border: none;
+  height: 100%;
+  width: 100%;
 }
 
 .prop-sec-title {

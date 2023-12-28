@@ -5,6 +5,8 @@ import Image from "next/image";
 import moment from "moment";
 import { Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
+import LiteYouTubeEmbed from "react-lite-youtube-embed";
+import "react-lite-youtube-embed/dist/LiteYouTubeEmbed.css";
 import icons from "@/utils/icons";
 import amenitiesIcon from "@/utils/amenities";
 import SiteVisitForm from "@/components/SiteVisitForm";
@@ -160,23 +162,6 @@ const PropertyDetail = ({ data, id }) => {
     ) : null;
   }, [data]);
 
-  const youtubeVideo = useMemo(() => {
-    return data?.youtubeLink ? (
-      <div className="prop-section">
-        <div className="prop-sec-title">Property Video</div>
-        <iframe
-          className="p-youtube-v-frame"
-          src={`https://www.youtube.com/embed/${data?.youtubeLink
-            .split("/")
-            .at(-1)}-&amp;controls=0`}
-          title="YouTube video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-        ></iframe>
-      </div>
-    ) : null;
-  }, [data]);
-
   const handleGalleryOpen = () => {
     setGalleryOpen(!galleryOpen);
   };
@@ -270,6 +255,7 @@ const PropertyDetail = ({ data, id }) => {
                 alt="Property Main Image"
                 height={500}
                 width={900}
+                priority={true}
               />
             </div>
 
@@ -312,7 +298,17 @@ const PropertyDetail = ({ data, id }) => {
               </div>
             </div>
 
-            {youtubeVideo}
+            {data?.youtubeLink && (
+              <div className="prop-section">
+                <div className="prop-sec-title">Property Video</div>
+                <div className="p-youtube-v-wrap">
+                  <LiteYouTubeEmbed
+                    iframeClass="p-youtube-v-frame"
+                    id={data?.youtubeLink.split("/").at(-1).split("?")[0]}
+                  />
+                </div>
+              </div>
+            )}
 
             <div className="prop-section" id="Location">
               <div className="prop-sec-title">Location</div>

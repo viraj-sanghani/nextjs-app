@@ -2,7 +2,7 @@ import { cache } from "react";
 import Error from "@/components/Error";
 import PropertyDetail from "./Detail";
 import { call, getPropertyInfo } from "@/services/api";
-import { propertyOriginalImg, propertySmallImg } from "@/utils/helper";
+import { propertySmallImg } from "@/utils/helper";
 import generateMeta from "@/utils/metadata";
 
 export const getPropertyDetail = cache(async (id) => {

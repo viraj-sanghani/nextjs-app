@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700&display=swap");
-
 :root {
   --space: 20px;
   --chat-bot-bg: #004e8e;
@@ -93,9 +91,8 @@ input {
 * Popup
 ****************************************************/
 .chat-popup-btn-wrap {
-  font-family: "Source Sans Pro", sans-serif;
   font-size: 0.8125rem;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.5385;
   text-align: left;
   color: var(--chat-font-color);
@@ -264,9 +261,8 @@ input {
 }
 
 .chat-popup {
-  font-family: "Source Sans Pro", sans-serif;
-  font-size: 15px;
-  font-weight: 400;
+  font-size: 14px;
+  font-weight: 500;
   line-height: 1.5385;
   color: #333;
   text-align: left;
@@ -537,7 +533,7 @@ input {
 }
 .chat-mes {
   width: fit-content;
-  font-size: 15px;
+  font-size: 14px;
   padding: 12px 17px 20px;
   padding-bottom: 20px !important;
   line-height: 20px;
@@ -784,7 +780,7 @@ input {
 }
 .property-wrapper .swiper-button-prev:after,
 .property-wrapper .swiper-button-next:after {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
 }
 
