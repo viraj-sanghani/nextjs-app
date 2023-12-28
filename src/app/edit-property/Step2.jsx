@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@mui/material";
 import {
@@ -91,7 +91,7 @@ function Step2({ draftData }) {
       <form noValidate onSubmit={form.handleSubmit}>
         <div className="p-form-fields-con">
           {Object.values(formData).map((ele, i) => (
-            <React.Fragment key={i}>
+            <Fragment key={i}>
               {!ele?.hide &&
                 formField[ele.type]({
                   ...ele,
@@ -99,7 +99,7 @@ function Step2({ draftData }) {
                   onChange: handleChange,
                   error: form.touched[ele.key] && form.errors[ele.key],
                 })}
-            </React.Fragment>
+            </Fragment>
           ))}
         </div>
         <div className="p-form-btn-con">
