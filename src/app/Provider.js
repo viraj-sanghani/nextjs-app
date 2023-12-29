@@ -2,22 +2,25 @@
 
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Provider } from "react-redux";
+import dynamic from "next/dynamic";
 import { ToastContainer } from "react-toastify";
 import store from "@/redux/store";
 import Auth from "@/components/Auth";
 import Authentication from "./auth/Authentication";
-import Bot from "@/Bot/Bot";
-import Logout from "@/components/Logout";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import GoogleAnalytics from "@/components/GoogleAnalytics";
-import ExtraDetailForm from "./auth/ExtraDetailForm";
-import SpeechRecognition from "@/components/SpeechRecognition";
-import SocialShare from "@/components/SocialShare";
-import ScrollTop from "@/components/ScrollTop";
-import ViewContact from "@/components/ViewContact";
-import CompareSticky from "@/components/CompareSticky";
-import NearByLocation from "@/components/NearByLocation";
+const Bot = dynamic(() => import("@/Bot/Bot"));
+const Logout = dynamic(() => import("@/components/Logout"));
+const Navbar = dynamic(() => import("@/components/Navbar"));
+const Footer = dynamic(() => import("@/components/Footer"));
+const GoogleAnalytics = dynamic(() => import("@/components/GoogleAnalytics"));
+const ExtraDetailForm = dynamic(() => import("./auth/ExtraDetailForm"));
+const SpeechRecognition = dynamic(() =>
+  import("@/components/SpeechRecognition")
+);
+const SocialShare = dynamic(() => import("@/components/SocialShare"));
+const ScrollTop = dynamic(() => import("@/components/ScrollTop"));
+const ViewContact = dynamic(() => import("@/components/ViewContact"));
+const CompareSticky = dynamic(() => import("@/components/CompareSticky"));
+const NearByLocation = dynamic(() => import("@/components/NearByLocation"));
 
 const queryClient = new QueryClient();
 

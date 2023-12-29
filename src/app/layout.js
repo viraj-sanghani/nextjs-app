@@ -13,7 +13,9 @@ export const metadata = generateMeta("home");
 const RootLayout = ({ children }) => {
   return (
     <html lang="en">
-      <head></head>
+      <head>
+        <meta name="robots" content="index,follow" />
+      </head>
       <body className={open_sans.className}>
         <RootProvider>{children}</RootProvider>
       </body>

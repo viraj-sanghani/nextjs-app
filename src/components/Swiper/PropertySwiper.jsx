@@ -5,12 +5,12 @@ import { SwiperSlide } from "swiper/react";
 import SwiperComp from "./Swiper";
 import PropertyCard from "@/components/Cards/PropertyCard";
 
-const PropertySwiper = ({ data }) => {
+const PropertySwiper = ({ data, className = "" }) => {
   const { compareProperty } = useSelector((state) => state.activity);
 
   return (
     data && (
-      <div className="swiper-container">
+      <div className={className}>
         <SwiperComp
           slidesPerView={"auto"}
           spaceBetween={20}

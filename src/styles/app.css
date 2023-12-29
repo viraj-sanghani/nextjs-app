@@ -2404,6 +2404,10 @@ button {
   text-transform: uppercase;
 }
 
+.home-ads-container {
+  background: var(--color-4);
+}
+
 /* Info */
 
 .featured-boxes-area {
@@ -3191,7 +3195,7 @@ button {
 **********************************/
 
 .property-detail-con {
-  background: var(--color-6);
+  background: var(--color-4);
 }
 .prop-box {
   display: flex;

@@ -49,6 +49,34 @@ utils
 pending
 =========
 
+cookies problem in local
 convert AXIOS req to fetch
 sitemap
 metadata
+
+
+
+
+
+
+
+
+// middleware.js
+
+import { NextResponse } from "next/server";
+
+const isLoggedIn = false;
+
+export function middleware(req) {
+  // req.nextURL = req.url;
+
+  if (!isLoggedIn)
+    return NextResponse.redirect(
+      new URL("/auth/login?next=" + req.url, req.url)
+    );
+  return NextResponse.next(req);
+}
+
+export const config = {
+  matcher: ["/account", "/account/profile"],
+};

@@ -29,7 +29,7 @@ function Recommendation() {
           <h2>Recommended Properties</h2>
         </div>
 
-        <PropertySwiper data={recommendation} />
+        <PropertySwiper className="swiper-container" data={recommendation} />
       </>
     )
   );

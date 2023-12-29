@@ -14,7 +14,7 @@ function RentSaleProp() {
             <h2>PROJECTS</h2>
           </div>
 
-          <PropertySwiper data={data.sale} />
+          <PropertySwiper className="swiper-container" data={data.sale} />
         </>
       ) : (
         <div className="data-loader">
@@ -29,7 +29,7 @@ function RentSaleProp() {
             <h2>PROJECTS</h2>
           </div>
 
-          <PropertySwiper data={data.rental} />
+          <PropertySwiper className="swiper-container" data={data.rental} />
         </>
       ) : (
         <div className="data-loader">

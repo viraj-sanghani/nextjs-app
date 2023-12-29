@@ -48,7 +48,11 @@ function Footer() {
             </div>
 
             <div className="footer-item">
-              <Link className="f-link-hover" target="_blank" href="/sitemap">
+              <Link
+                className="f-link-hover"
+                target="_blank"
+                href="/sitemap.xml"
+              >
                 Sitemap
               </Link>
             </div>
