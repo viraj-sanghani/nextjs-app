@@ -4,12 +4,15 @@ import "@/styles/home.css";
 import React, { Suspense, lazy } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { useDispatch } from "react-redux";
-import Searchbar from "@/components/Searchbar";
+const Searchbar = dynamic(() => import("@/components/Searchbar"));
 import Loading from "@/components/Loading";
 import { setBotOpen } from "@/redux/reducers/botReducer";
-import HomeBannerSwiper from "@/components/Swiper/HomeBannerSwiper";
-import HomeAdsSwiper from "@/components/Swiper/HomeAdsSwiper";
+const HomeBannerSwiper = lazy(() =>
+  import("@/components/Swiper/HomeBannerSwiper")
+);
+const HomeAdsSwiper = lazy(() => import("@/components/Swiper/HomeAdsSwiper"));
 const HowItWork = lazy(() => import("./HowItWork"));
 const FeaturedTools = lazy(() => import("./FeaturedTools"));
 const RentSaleProp = lazy(() => import("./RentSaleProp"));

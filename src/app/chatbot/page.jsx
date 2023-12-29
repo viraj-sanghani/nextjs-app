@@ -1,4 +1,5 @@
-import Bot from "@/Bot/Bot";
+import dynamic from "next/dynamic";
+const Bot = dynamic(() => import("@/Bot/Bot"));
 
 function Chatbot() {
   return <Bot fullScreen={true} />;
