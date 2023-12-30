@@ -5,17 +5,14 @@ import React, { Suspense, lazy } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useDispatch } from "react-redux";
-const Searchbar = lazy(() => import("@/components/Searchbar"));
-import Loading from "@/components/Loading";
 import { setBotOpen } from "@/redux/reducers/botReducer";
-const HomeBannerSwiper = lazy(() =>
-  import("@/components/Swiper/HomeBannerSwiper")
-);
+import HomeBannerSwiper from "@/components/Swiper/HomeBannerSwiper";
 import HomeAdsSwiper from "@/components/Swiper/HomeAdsSwiper";
 import SearchbarSkeleton from "@/components/Skeleton/SearchbarSkeleton";
+import RentSaleProp from "./RentSaleProp";
+const Searchbar = lazy(() => import("@/components/Searchbar"));
 const HowItWork = lazy(() => import("./HowItWork"));
 const FeaturedTools = lazy(() => import("./FeaturedTools"));
-const RentSaleProp = lazy(() => import("./RentSaleProp"));
 const Recommendation = lazy(() => import("./Recommendation"));
 const AdvertiseSwiper = lazy(() =>
   import("@/components/Swiper/AdvertiseSwiper")
@@ -68,9 +65,14 @@ const Home = ({ data }) => {
         </>
       )}
 
-      <Suspense fallback={null}>
-        <RentSaleProp />
+      <RentSaleProp
+        data={{
+          sale: data?.sale,
+          rental: data?.rental,
+        }}
+      />
 
+      <Suspense fallback={null}>
         <HowItWork />
 
         <Recommendation />

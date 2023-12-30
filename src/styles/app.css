@@ -2343,6 +2343,7 @@ button {
   max-width: 700px;
 }
 .searchbar-wrap {
+  margin: 10px;
   padding: 0 10px;
   background: #fff;
   border-radius: 15px;
@@ -2558,7 +2559,6 @@ button {
   }
   .searchbar-wrap {
     padding: 0;
-    margin: 10px;
   }
   .home-searchbar {
     margin-top: -45px;

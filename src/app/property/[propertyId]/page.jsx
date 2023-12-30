@@ -6,26 +6,34 @@ import { propertySmallImg } from "@/utils/helper";
 import generateMeta from "@/utils/metadata";
 
 export const getPropertyDetail = cache(async (id) => {
-  const res = await call(getPropertyInfo(id));
-  return res.data;
+  try {
+    const res = await call(getPropertyInfo(id));
+    return res.data;
+  } catch (err) {
+    return;
+  }
 });
 
 export async function generateMetadata({ params, searchParams }, parent) {
   const id = (params?.propertyId || "").split("-").at(-1);
   const data = await getPropertyDetail(id);
 
-  return generateMeta({
-    meta_title: data.meta_title,
-    meta_keyword: data.meta_keyword,
-    meta_desc: data.meta_description,
-    meta_url: data.url,
-    image: propertySmallImg(data.images[0].img),
-  });
+  return data
+    ? generateMeta({
+        meta_title: data?.meta_title,
+        meta_keyword: data?.meta_keyword,
+        meta_desc: data?.meta_description,
+        meta_url: data?.url,
+        image: data?.images ? propertySmallImg(data.images[0].img) : "",
+      })
+    : null;
 }
 
 const page = async ({ params }) => {
   const id = (params?.propertyId || "").split("-").at(-1);
   const data = await getPropertyDetail(id);
+
+  if (!data) return <Error />;
 
   const mainImage = data?.images.filter((ele) => {
     return ele.type === "Main Image";
@@ -39,11 +47,7 @@ const page = async ({ params }) => {
 
   const amenities = data?.amenities ? data?.amenities.split(",") : [];
 
-  return data ? (
-    <PropertyDetail data={{ ...data, image, amenities }} id={id} />
-  ) : (
-    <Error />
-  );
+  return <PropertyDetail data={{ ...data, image, amenities }} id={id} />;
 };
 
 export default page;

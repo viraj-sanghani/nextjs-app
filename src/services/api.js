@@ -1,8 +1,10 @@
 import axios from "axios";
 import { encryption } from "@/utils/crypto";
 
-const API = axios.create({ baseURL: process.env.NEXT_PUBLIC_API });
-const API1 = axios.create({ baseURL: process.env.NEXT_PUBLIC_API });
+const baseURL = process.env.NEXT_PUBLIC_API;
+
+const API = axios.create({ baseURL: baseURL });
+const API1 = axios.create({ baseURL: baseURL });
 
 if (typeof window !== "undefined") {
   const authToken = localStorage.getItem("AUTH_TOKEN");
@@ -49,6 +51,28 @@ export const call = (callback) => {
   });
 };
 
+export const callFetch = (callback) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const res = await callback;
+      const data = await res.json();
+      if (data.success) {
+        delete data.success;
+        resolve(data);
+      } else {
+        delete data.success;
+        reject(data);
+      }
+    } catch (err) {
+      reject(
+        err.response?.data?.errors ||
+          err.response?.data?.message ||
+          "Something went wrong"
+      );
+    }
+  });
+};
+
 // Authentication
 
 export const login = (data) =>
@@ -71,8 +95,10 @@ export const logout = () => API.get("/auth/logout");
 
 // Home
 
-export const getHomePageData = () => API.get("/property/home");
-export const getHomePageBanners = () => API.get("/banner/home");
+export const getHomePageData = () =>
+  callFetch(fetch(baseURL + "/property/home"));
+export const getHomePageBanners = () =>
+  callFetch(fetch(baseURL + "/banner/home"));
 
 // Support
 

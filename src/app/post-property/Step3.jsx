@@ -108,6 +108,7 @@ function Step3() {
           <Button
             variant="contained"
             size="large"
+            sx={{ my: 2 }}
             onClick={() => dispatch(setStep(step - 1))}
             disabled={loading}
           >

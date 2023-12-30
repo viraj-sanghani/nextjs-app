@@ -160,6 +160,7 @@ function Step3({ draftData }) {
           <Button
             variant="contained"
             size="large"
+            sx={{ my: 2 }}
             onClick={() => dispatch(setStep(step - 1))}
             disabled={loading}
           >
@@ -169,6 +170,7 @@ function Step3({ draftData }) {
             type="submit"
             variant="contained"
             size="large"
+            sx={{ my: 2 }}
             onClick={handleSubmit}
             disabled={loading}
           >

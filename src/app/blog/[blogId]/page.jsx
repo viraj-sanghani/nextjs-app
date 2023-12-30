@@ -1,7 +1,7 @@
 import { cache } from "react";
 import moment from "moment";
 import Image from "next/image";
-import E404 from "@/components/Error";
+import Error from "@/components/Error";
 import { blogOriginalImg, blogSmallImg } from "@/utils/helper";
 import BlogCategory from "../BlogCategory";
 import BlogProperty from "./BlogProperty";
@@ -9,21 +9,27 @@ import generateMeta from "@/utils/metadata";
 import { call, getBlogDetail } from "@/services/api";
 
 export const getBlog = cache(async (blogId) => {
-  const res = await call(getBlogDetail(blogId));
-  return res.data;
+  try {
+    const res = await call(getBlogDetail(blogId));
+    return res.data;
+  } catch (err) {
+    return;
+  }
 });
 
 export async function generateMetadata({ params, searchParams }, parent) {
   const blogId = (params.blogId || "").split("-").at(-1);
   const data = await getBlog(blogId);
 
-  return generateMeta({
-    meta_title: data.meta_title,
-    meta_keyword: data.meta_keyword,
-    meta_desc: data.meta_desc,
-    meta_url: data.meta_url,
-    image: blogSmallImg(data.img),
-  });
+  return data
+    ? generateMeta({
+        meta_title: data?.meta_title,
+        meta_keyword: data?.meta_keyword,
+        meta_desc: data?.meta_desc,
+        meta_url: data?.meta_url,
+        image: data.img ? blogSmallImg(data.img) : "",
+      })
+    : null;
 }
 
 function createMarkup(content) {
@@ -34,7 +40,9 @@ const page = async ({ params }) => {
   const blogId = (params.blogId || "").split("-").at(-1);
   const blog = await getBlog(blogId);
 
-  return blog ? (
+  if (!blog) return <Error />;
+
+  return (
     <div className="blog-box">
       <div className="blog-wrap">
         <div className="blog-image-wrap">
@@ -65,8 +73,6 @@ const page = async ({ params }) => {
 
       <BlogProperty />
     </div>
-  ) : (
-    <E404 />
   );
 };
 

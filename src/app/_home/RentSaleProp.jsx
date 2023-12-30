@@ -1,10 +1,7 @@
 import PropertySwiper from "@/components/Swiper/PropertySwiper";
 import Loading from "@/components/Loading";
-import { useGetHomePage } from "@/queryHooks/useHomePage";
 
-function RentSaleProp() {
-  const { data, isLoading: loading, isFetching } = useGetHomePage();
-
+function RentSaleProp({ data }) {
   return (
     <>
       {data?.sale && data?.sale.length > 0 ? (

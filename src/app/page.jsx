@@ -9,8 +9,8 @@ import {
 
 export const getHomeDetail = cache(async () => {
   const [homeBanners, homeData, recentLaunch] = await Promise.all([
-    call(getHomePageBanners()),
-    call(getHomePageData()),
+    getHomePageBanners(),
+    getHomePageData(),
     call(getAds(1)),
   ]);
   return {
