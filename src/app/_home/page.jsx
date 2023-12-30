@@ -4,15 +4,15 @@ import "@/styles/home.css";
 import React, { Suspense, lazy } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import dynamic from "next/dynamic";
 import { useDispatch } from "react-redux";
-const Searchbar = dynamic(() => import("@/components/Searchbar"));
+const Searchbar = lazy(() => import("@/components/Searchbar"));
 import Loading from "@/components/Loading";
 import { setBotOpen } from "@/redux/reducers/botReducer";
 const HomeBannerSwiper = lazy(() =>
   import("@/components/Swiper/HomeBannerSwiper")
 );
-const HomeAdsSwiper = lazy(() => import("@/components/Swiper/HomeAdsSwiper"));
+import HomeAdsSwiper from "@/components/Swiper/HomeAdsSwiper";
+import SearchbarSkeleton from "@/components/Skeleton/SearchbarSkeleton";
 const HowItWork = lazy(() => import("./HowItWork"));
 const FeaturedTools = lazy(() => import("./FeaturedTools"));
 const RentSaleProp = lazy(() => import("./RentSaleProp"));
@@ -35,7 +35,9 @@ const Home = ({ data }) => {
       <div className="home-searchbar">
         <div className="searchbar-container">
           <div className="searchbar-wrap">
-            <Searchbar isHome={true} />
+            <Suspense fallback={<SearchbarSkeleton />}>
+              <Searchbar isHome={true} />
+            </Suspense>
           </div>
           <div className="popular-locality-wrap">
             <div className="pop-loc-title">Popular Localities</div>
@@ -55,7 +57,7 @@ const Home = ({ data }) => {
         </div>
       </div>
 
-      {data.recentLaunch.length > 0 ? (
+      {data.recentLaunch.length > 0 && (
         <>
           <div className="s-section-title max-width">
             <h3>Recent</h3>
@@ -64,10 +66,6 @@ const Home = ({ data }) => {
 
           <HomeAdsSwiper data={data.recentLaunch} />
         </>
-      ) : (
-        <div className="data-loader">
-          <Loading />
-        </div>
       )}
 
       <Suspense fallback={null}>
