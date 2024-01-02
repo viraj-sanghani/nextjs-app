@@ -107,11 +107,6 @@ function Searchbar({ isHome }) {
     dispatch(setListenerOpen(true));
   };
 
-  const minimizeSearch = () => {
-    setShowSuggestion(false);
-    setShowFilter(false);
-  };
-
   const handleSearchChange = (data) => {
     dispatch(setSearchType(data));
     setShowType(false);
@@ -212,7 +207,6 @@ function Searchbar({ isHome }) {
 
           <SearchbarFilter
             searchParams={selectedItem}
-            minimizeSearch={minimizeSearch}
             className={!showFilter ? "hide" : ""}
           />
 

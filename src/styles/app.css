@@ -1517,7 +1517,7 @@ button {
 .search-filter-footer {
   background: var(--color-4);
   border-top: 1px solid #e2f0ff;
-  padding: 10px 20px;
+  padding: 10px 20px 20px;
   display: flex;
   justify-content: flex-end;
   gap: 20px;

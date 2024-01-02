@@ -7,8 +7,9 @@ import { Button, Slider, Switch } from "@mui/material";
 import icons from "@/utils/icons";
 import { getFilterFields, getFilters, sliderKeys } from "@/utils/data";
 import { formatNumber } from "@/utils/helper";
+import Loading from "./Loading";
 
-function SearchbarFilter({ minimizeSearch, searchParams, className }) {
+function SearchbarFilter({ searchParams, className }) {
   const router = useRouter();
   const { searchType } = useSelector((state) => state.filter);
   const [filter, setFilter] = useState([]);
@@ -30,6 +31,7 @@ function SearchbarFilter({ minimizeSearch, searchParams, className }) {
   });
   const [activeFilters, setActiveFilters] = useState([]);
   const [searchError, setSearchError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleTitle = (value, max) => {
     return formatNumber(value) + (value == max ? "+" : "");
@@ -294,6 +296,7 @@ function SearchbarFilter({ minimizeSearch, searchParams, className }) {
       return setSearchError(true);
     }
 
+    setLoading(true);
     setSearchError(false);
     const data = {
       propertyType: [],
@@ -338,8 +341,6 @@ function SearchbarFilter({ minimizeSearch, searchParams, className }) {
         urlData += `&${key}_max=${data[key].max}`;
       }
     });
-
-    minimizeSearch();
 
     let url = searchFor.name.replaceAll(",", "");
     url = url.replaceAll(" ", "-");
@@ -588,8 +589,8 @@ function SearchbarFilter({ minimizeSearch, searchParams, className }) {
         <Button color="error" onClick={clearFilterAll}>
           Clear All
         </Button>
-        <Button variant="contained" onClick={handleSearch}>
-          Search
+        <Button variant="contained" onClick={handleSearch} disabled={loading}>
+          {loading ? <Loading color="#fff" /> : "Search"}
         </Button>
       </div>
     </div>
