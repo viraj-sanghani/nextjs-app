@@ -11,7 +11,11 @@ function SearchbarSkeleton(props) {
       </div>
       <div
         className="searchbar"
-        style={{ alignItems: "unset", height: 65, padding: "0.5rem 1rem" }}
+        style={{
+          alignItems: "unset",
+          height: 65,
+          padding: "0.7rem 0.7rem 0.7rem 1.5rem",
+        }}
       >
         <Skeleton containerClassName="w-100" className="input-wrap" />
         <Skeleton className="location-icon" style={{ background: "#c9d3df" }} />

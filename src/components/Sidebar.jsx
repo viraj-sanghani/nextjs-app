@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import UserLogo from "./UserLogo";
 import { setAuthModel, setLogoutModel } from "@/redux/reducers/authReducer";
@@ -11,14 +10,11 @@ import Icons from "@/utils/icons";
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
   const dispatch = useDispatch();
-  const router = useRouter();
   const { profile, isLoggedIn } = useSelector((state) => state.auth);
-  const [url, seturl] = useState(router.asPath);
 
   useModalBackPress({
     open: isOpen,
     hide: () => setIsOpen(false),
-    url,
   });
 
   useEffect(() => {

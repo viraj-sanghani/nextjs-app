@@ -45,7 +45,7 @@ export const useFindVisibility = (invalidPath) => {
   return shouldShow;
 };
 
-export const useModalBackPress = ({ open, hide, url }) => {
+export const useModalBackPress = ({ open, hide }) => {
   const pathname = usePathname();
   const router = useRouter();
   const search = useSearchParams();
@@ -64,7 +64,11 @@ export const useModalBackPress = ({ open, hide, url }) => {
     const device = getDevice();
     if (["MOBILE", "TABLET"].includes(device)) {
       if (isOpen) {
-        router.push(`${pathname}?${search.toString()}`);
+        router.push(
+          `${pathname}?_=${Date.now()}${
+            search.toString() && "&"
+          }${search.toString()}`
+        );
         setShow(true);
       } else if (show) {
         setShow(false);
