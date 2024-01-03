@@ -93,6 +93,7 @@ function Map(props) {
   const handleMapLoad = (e) => {
     props?.onLoad && props?.onLoad(e.target);
     setMap(e.target);
+    center && e.target.flyTo(center, 13, { duration: 3 });
   };
 
   const handleZoomIn = () => {

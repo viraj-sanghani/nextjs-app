@@ -16,6 +16,7 @@ import {
   formatNumber,
   propertyBrochure,
   propertyOriginalImg,
+  propertySmallImg,
 } from "@/utils/helper";
 import PropertySwiper from "@/components/Swiper/PropertySwiper";
 import AdvertiseSwiper from "@/components/Swiper/AdvertiseSwiper";
@@ -74,9 +75,7 @@ const PropertyDetail = ({ data, id }) => {
   const handleToggleCompare = () => {
     const propData = {
       id: id,
-      img: (data.images[0] ? data.images[0]?.thumbnail || "" : "")
-        .split("/")
-        .at(-1),
+      img: data.image,
       url: data?.url,
       title: data.project_name,
       desc: `₹ ${formatNumber(data?.exp_price || data?.monthly_rent || 0)} ${
