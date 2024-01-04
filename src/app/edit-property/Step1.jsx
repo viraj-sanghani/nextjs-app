@@ -40,7 +40,7 @@ function Step1({ draftData }) {
 
   const fetchCity = async () => {
     try {
-      const res = await call(getCity());
+      const res = await getCity();
       setCities(res.data.map((ele) => ele?.city));
     } catch (err) {
       console.log(err);

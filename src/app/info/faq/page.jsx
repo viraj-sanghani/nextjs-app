@@ -1,33 +1,12 @@
-import { call, getFAQ } from "@/services/api";
+import { getFAQ } from "@/services/api";
 import Data from "./Data";
-
-/* export const getServerSideProps = async () => {
-  try {
-    const res = await call(getFAQ());
-
-    return {
-      props: {
-        data: res.data,
-      },
-      // revalidate: 60,
-    };
-  } catch (err) {
-    return {
-      props: {
-        data: [],
-      },
-      // revalidate: 60,
-    };
-  }
-}; */
 
 async function fetchFAQData() {
   try {
-    const res = await call(getFAQ());
+    const res = await getFAQ();
     return res.data;
   } catch (error) {
-    console.error("Error fetching FAQ data:", error);
-    return []; // Re-throw the error to handle it elsewhere if needed
+    return [];
   }
 }
 

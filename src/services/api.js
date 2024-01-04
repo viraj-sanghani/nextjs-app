@@ -51,10 +51,10 @@ export const call = (callback) => {
   });
 };
 
-export const callFetch = (callback) => {
+export const callFetch = (endPoint) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const res = await callback;
+      const res = await fetch(baseURL + endPoint);
       const data = await res.json();
       if (data.success) {
         delete data.success;
@@ -95,14 +95,12 @@ export const logout = () => API.get("/auth/logout");
 
 // Home
 
-export const getHomePageData = () =>
-  callFetch(fetch(baseURL + "/property/home"));
-export const getHomePageBanners = () =>
-  callFetch(fetch(baseURL + "/banner/home"));
+export const getHomePageData = () => callFetch("/property/home");
+export const getHomePageBanners = () => callFetch("/banner/home");
 
 // Support
 
-export const getFAQ = () => API.get("/support/faq");
+export const getFAQ = () => callFetch("/support/faq");
 export const sendFeedback = (data) => API.post("/support/feedback", data);
 export const sendContactus = (data) => API.post("/support/contact-us", data);
 export const sendNewsLetter = (data) => API.post("/support/news-letter", data);
@@ -116,7 +114,7 @@ export const getFilterData = (data) => API.post("/search/filter", data);
 
 // Property
 
-export const getCity = () => API.get("/property/city");
+export const getCity = () => callFetch("/property/city");
 export const getLocality = (data) => API.post("/property/locality", data);
 export const getDraftProperty = () => API.get("/property/draft");
 export const saveProperty = (data) => API.post("/property/save", data);
@@ -166,7 +164,7 @@ export const getBlogProperties = (id) => API.get("/blog/properties/" + id);
 
 // Ads
 
-export const getAds = (id) => API.get("/ad/" + id);
+export const getAds = (id) => API.get("/sponsored/" + id);
 
 // Requirement
 
