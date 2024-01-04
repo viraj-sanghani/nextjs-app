@@ -51,10 +51,14 @@ export const call = (callback) => {
   });
 };
 
-export const callFetch = (endPoint) => {
+export const callFetch = (endPoint, time = 60) => {
   return new Promise(async (resolve, reject) => {
     try {
-      const res = await fetch(baseURL + endPoint);
+      const res = await fetch(baseURL + endPoint, {
+        next: {
+          revalidate: time * 1000,
+        },
+      });
       const data = await res.json();
       if (data.success) {
         delete data.success;
@@ -114,7 +118,7 @@ export const getFilterData = (data) => API.post("/search/filter", data);
 
 // Property
 
-export const getCity = () => callFetch("/property/city");
+export const getCity = () => callFetch("/property/city", 1440);
 export const getLocality = (data) => API.post("/property/locality", data);
 export const getDraftProperty = () => API.get("/property/draft");
 export const saveProperty = (data) => API.post("/property/save", data);
@@ -172,4 +176,4 @@ export const sendRequirement = (data) => API.post("/requirement/add", data);
 
 // Sitemap
 
-export const getSitemap = () => API.get("/sitemap");
+export const getSitemap = () => callFetch("/sitemap", 1440);

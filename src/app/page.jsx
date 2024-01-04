@@ -6,6 +6,9 @@ import {
   getHomePageData,
   getAds,
 } from "@/services/api";
+import generateMeta from "@/utils/metadata";
+
+export const metadata = generateMeta("home");
 
 export const getHomeDetail = cache(async () => {
   const [homeBanners, homeData, recentLaunch] = await Promise.all([

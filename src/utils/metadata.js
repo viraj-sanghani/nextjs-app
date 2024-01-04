@@ -162,38 +162,48 @@ const generateMeta = (data) => {
   if (typeof data === "string") {
     const d = metadata[data];
     return {
-      metadataBase: new URL(
-        "https://trackerweblord.s3.ap-south-1.amazonaws.com/"
-      ),
-      title: d.title,
-      keyword: d.keyword,
+      metadataBase: new URL("https://housingmagic.com"),
+      title: {
+        default: d.title,
+        // template: `%s | Housing Magic`,
+      },
+      keywords: d.keyword,
       description: d.desc,
-      url: d.url,
+      alternates: {
+        canonical: d.url,
+      },
       openGraph: {
         siteName: "Housing Magic",
         title: d.title,
-        keyword: d.keyword,
         description: d.desc,
         url: d.url,
         images: d.image,
       },
+      verification: {
+        google: "google-site-verification=75475894",
+      },
     };
   } else
     return {
-      metadataBase: new URL(
-        "https://trackerweblord.s3.ap-south-1.amazonaws.com/"
-      ),
-      title: data?.meta_title,
-      keyword: data?.meta_keyword,
+      metadataBase: new URL("https://housingmagic.com"),
+      title: {
+        default: data?.meta_title,
+        // template: `%s | Housing Magic`,
+      },
+      keywords: data?.meta_keyword,
       description: data?.meta_desc,
-      url: data?.meta_url,
+      alternates: {
+        canonical: data?.meta_url,
+      },
       openGraph: {
         siteName: "Housing Magic",
         title: data?.meta_title,
-        keyword: data?.meta_keyword,
         description: data?.meta_desc,
         url: data?.meta_url,
         images: data?.image,
+      },
+      verification: {
+        google: "google-site-verification=75475894",
       },
     };
 };

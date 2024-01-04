@@ -1,5 +1,5 @@
 {
-  "name": "nextjs",
+  "name": "housingmagic-client",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,7 +8,7 @@
     "build:start": "next start",
     "preview": "npm run build && npm run build:start",
     "lint": "next lint",
-    "publish": "pm2 start server.js -n nextjs-app"
+    "publish": "pm2 start server.js -n housingmagic-client"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
