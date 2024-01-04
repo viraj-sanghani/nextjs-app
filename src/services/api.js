@@ -164,7 +164,7 @@ export const getBlogProperties = (id) => API.get("/blog/properties/" + id);
 
 // Ads
 
-export const getAds = (id) => API.get("/sponsored/" + id);
+export const getAds = (id) => API.get("/properties/" + id);
 
 // Requirement
 
