@@ -1,11 +1,11 @@
 import Link from "next/link";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { convertBlogCatUrl } from "@/utils/helper";
-import { getCategories, call } from "@/services/api";
+import { getCategories } from "@/services/api";
 
 const fetchBlogCategories = async () => {
   try {
-    const res = await call(getCategories());
+    const res = await getCategories();
     return res.data;
   } catch (err) {
     return [];

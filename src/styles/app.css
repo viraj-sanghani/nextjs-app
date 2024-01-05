@@ -1792,6 +1792,14 @@ button {
 * Home Advertising
 **********************************/
 
+.home-advertise-wrap .swiper-slide {
+  width: calc(50% - 10px);
+  margin-right: 20px;
+}
+.home-advertise-wrap .swiper-slide:last-child {
+  margin-right: 0;
+}
+
 .advertise-container {
   width: 100%;
   background: var(--color-6);
@@ -1866,6 +1874,12 @@ button {
 .prop-post-ago {
   text-align: right;
   margin-top: auto;
+}
+
+@media screen and (max-width: 1200px) {
+  .home-advertise-wrap .swiper-slide {
+    width: 100%;
+  }
 }
 
 @media screen and (max-width: 768px) {

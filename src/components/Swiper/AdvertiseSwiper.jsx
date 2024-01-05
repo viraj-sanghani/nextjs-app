@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { SwiperSlide } from "swiper/react";
 import { adsImg, formatNumber, timeAgo } from "@/utils/helper";
-import { call, getAds } from "@/services/api";
+import { getAds } from "@/services/api";
 import SwiperComp from "./Swiper";
 
 const AdvertiseSwiper = ({ title, category }) => {
@@ -14,7 +14,7 @@ const AdvertiseSwiper = ({ title, category }) => {
   useEffect(() => {
     const fetchAds = async () => {
       try {
-        const res = await call(getAds(category));
+        const res = await getAds(category);
         setAds(res.data);
       } catch (err) {
         console.log("error", err);

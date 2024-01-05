@@ -8,16 +8,10 @@ const HomeAdsSwiper = ({ data }) => {
   return (
     <div className="home-ads-container">
       <SwiperComp
-        slidesPerView={1}
-        spaceBetween={20}
+        slidesPerView={"auto"}
+        spaceBetween={0}
         navigation={true}
-        className="swiper-box max-width"
-        breakpoints={{
-          1024: {
-            slidesPerView: 2,
-            spaceBetween: 30,
-          },
-        }}
+        className="swiper-box max-width home-advertise-wrap"
       >
         {data.map((ele, i) => (
           <SwiperSlide key={i}>

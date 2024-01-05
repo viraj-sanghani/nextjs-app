@@ -1,4 +1,3 @@
-import { cache } from "react";
 import moment from "moment";
 import Image from "next/image";
 import Error from "@/components/Error";
@@ -6,16 +5,16 @@ import { blogOriginalImg, blogSmallImg } from "@/utils/helper";
 import BlogCategory from "../BlogCategory";
 import BlogProperty from "./BlogProperty";
 import generateMeta from "@/utils/metadata";
-import { call, getBlogDetail } from "@/services/api";
+import { getBlogDetail } from "@/services/api";
 
-export const getBlog = cache(async (blogId) => {
+export const getBlog = async (blogId) => {
   try {
-    const res = await call(getBlogDetail(blogId));
+    const res = await getBlogDetail(blogId);
     return res.data;
   } catch (err) {
     return;
   }
-});
+};
 
 export async function generateMetadata({ params, searchParams }, parent) {
   const blogId = (params.blogId || "").split("-").at(-1);
@@ -71,7 +70,7 @@ const page = async ({ params }) => {
         </div>
       </div>
 
-      <BlogProperty />
+      <BlogProperty blogId={blogId} />
     </div>
   );
 };

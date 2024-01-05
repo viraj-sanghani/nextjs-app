@@ -2,13 +2,14 @@
 
 import { useEffect, useState } from "react";
 import PropertySwiper from "@/components/Swiper/PropertySwiper";
+import { getBlogProperties } from "@/services/api";
 
 const BlogProperty = ({ blogId }) => {
   const [blogProperties, setBlogProperties] = useState([]);
 
   const fetchBlogProp = async () => {
     try {
-      const res = await call(getBlogProperties(blogId));
+      const res = await getBlogProperties(blogId);
       setBlogProperties(res?.data || []);
     } catch (err) {}
   };

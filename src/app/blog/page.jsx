@@ -1,11 +1,11 @@
 import BlogCard from "@/components/Cards/BlogCard";
 import NoData from "@/components/NoData";
-import { call, getBlogs } from "@/services/api";
+import { getBlogs } from "@/services/api";
 import BlogCategory from "./BlogCategory";
 
 const fetchBlogs = async () => {
   try {
-    const res = await call(getBlogs("all"));
+    const res = await getBlogs("all");
     return res.data;
   } catch (err) {
     return [];

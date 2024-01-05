@@ -1,16 +1,21 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
-import Searchbar from "./Searchbar";
 import UserLogo from "./UserLogo";
-import Sidebar from "./Sidebar";
 import icons from "@/utils/icons";
 import { navbarInvalidPath } from "@/utils/data";
 import { setAuthModel, setLogoutModel } from "@/redux/reducers/authReducer";
 import { useFindVisibility } from "./CustomHook";
+const Searchbar = dynamic(() => import("./Searchbar"), {
+  ssr: false,
+});
+const Sidebar = dynamic(() => import("./Sidebar"), {
+  ssr: false,
+});
 
 function Navbar() {
   const dispatch = useDispatch();
@@ -52,10 +57,10 @@ function Navbar() {
               <span className="color-3">H</span>ousing
               <span className="color-3"> M</span>agic
               {/* <img
-        src={images.logoLight}
-        alt="HousingMagic"
-        style={{ height: 100 }}
-      /> */}
+                src={images.logoLight}
+                alt="HousingMagic"
+                style={{ height: 100 }}
+              /> */}
             </Link>
           </div>
 

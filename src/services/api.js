@@ -128,7 +128,7 @@ export const updateProperty = (id, data) =>
 export const updatePropertyActive = (data) => API.put("/property/active", data);
 export const uploadPropImg = (data) =>
   API1.post("/property/upload-image", data);
-export const getPropertyInfo = (id) => API.get("/property/info/" + id);
+export const getPropertyInfo = (id) => callFetch("/property/info/" + id);
 export const getSimilarProperty = (id) => API.get("/property/similar/" + id);
 export const addSiteVisit = (data) =>
   API.post("/property/site-visit/add", data);
@@ -161,14 +161,14 @@ export const getLeads = () => API.get("/property/leads/1");
 
 // Blog
 
-export const getBlogs = (id) => API.get("/blog/" + id);
-export const getBlogDetail = (id) => API.get("/blog/data/" + id);
-export const getCategories = () => API.get("/blog/categories");
-export const getBlogProperties = (id) => API.get("/blog/properties/" + id);
+export const getBlogs = (id) => callFetch("/blog/" + id);
+export const getBlogDetail = (id) => callFetch("/blog/data/" + id);
+export const getCategories = () => callFetch("/blog/categories");
+export const getBlogProperties = (id) => callFetch("/blog/properties/" + id);
 
 // Ads
 
-export const getAds = (id) => API.get("/properties/" + id);
+export const getAds = (id) => callFetch("/properties/" + id);
 
 // Requirement
 

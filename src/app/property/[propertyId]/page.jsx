@@ -1,18 +1,17 @@
-import { cache } from "react";
 import Error from "@/components/Error";
 import PropertyDetail from "./Detail";
-import { call, getPropertyInfo } from "@/services/api";
+import { getPropertyInfo } from "@/services/api";
 import { propertySmallImg } from "@/utils/helper";
 import generateMeta from "@/utils/metadata";
 
-export const getPropertyDetail = cache(async (id) => {
+export const getPropertyDetail = async (id) => {
   try {
-    const res = await call(getPropertyInfo(id));
+    const res = await getPropertyInfo(id);
     return res.data;
   } catch (err) {
     return;
   }
-});
+};
 
 export async function generateMetadata({ params, searchParams }, parent) {
   const id = (params?.propertyId || "").split("-").at(-1);

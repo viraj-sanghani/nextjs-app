@@ -93,7 +93,7 @@ const PropertyDetail = ({ data, id }) => {
 
   const fetchAds = async () => {
     try {
-      const res = await call(getAds(1));
+      const res = await getAds(1);
       setAds(res.data);
     } catch (err) {}
   };
