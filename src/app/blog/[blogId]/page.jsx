@@ -54,7 +54,7 @@ const page = async ({ params }) => {
         </div>
         <div className="blog-content-wrap">
           <div className="blog-detail">
-            <h2 className="blog-title">{blog?.title}</h2>
+            <h1 className="blog-title">{blog?.title}</h1>
             <p className="blog-created-time">
               Updated :{" "}
               {blog?.createdAt && moment(blog?.createdAt).format("LL")}

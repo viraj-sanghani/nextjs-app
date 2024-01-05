@@ -14,9 +14,9 @@ const Searchbar = lazy(() => import("@/components/Searchbar"));
 const HowItWork = lazy(() => import("./HowItWork"));
 const FeaturedTools = lazy(() => import("./FeaturedTools"));
 const Recommendation = lazy(() => import("./Recommendation"));
-/* const AdvertiseSwiper = lazy(() =>
+const AdvertiseSwiper = lazy(() =>
   import("@/components/Swiper/AdvertiseSwiper")
-); */
+);
 
 const Home = ({ data }) => {
   const dispatch = useDispatch();
@@ -79,7 +79,7 @@ const Home = ({ data }) => {
 
         <FeaturedTools />
 
-        {/* <AdvertiseSwiper title="Trending Projects" category={1} /> */}
+        <AdvertiseSwiper title="Trending Projects" category={1} />
 
         <div className="home-section-pp max-width">
           <div

@@ -58,6 +58,33 @@ const detail = (label, value) => {
   );
 };
 
+const generateTitle = (data) => {
+  let title = "";
+
+  if (data?.project_name) {
+    title += data.project_name;
+  }
+  if (data?.postFor === "CP") {
+    title += " (Only CP Group)";
+  }
+
+  title += ", ";
+
+  if (data?.bedroom) {
+    title += `${data.bedroom} BHK, `;
+  }
+
+  title += `${data?.property_type} in ${data?.locality}, ${
+    data?.city
+  } in ₹ ${formatNumber(data?.exp_price || data?.monthly_rent || 0)}`;
+
+  if (data?.monthly_rent) {
+    title += " <small>/ month</small>";
+  }
+
+  return title;
+};
+
 const sectionNames = ["Home", "Overview", "Location", "More Details"];
 
 const PropertyDetail = ({ data, id }) => {
@@ -190,18 +217,7 @@ const PropertyDetail = ({ data, id }) => {
           <div className="prop-left-side">
             <div className="prop-heading" id="Home">
               <div>
-                <h4>
-                  {data?.project_name && (
-                    <>
-                      {data.project_name}
-                      {data?.postFor === "CP" && " (Only CP Group)"},
-                    </>
-                  )}{" "}
-                  {data?.bedroom && data?.bedroom + " BHK, "}{" "}
-                  {data?.property_type} in {data?.locality}, {data?.city} in ₹{" "}
-                  {formatNumber(data?.exp_price || data?.monthly_rent || 0)}
-                  {data?.monthly_rent ? <small> / month</small> : ""}
-                </h4>
+                <h1>{generateTitle(data)}</h1>
                 {data?.rera_id && (
                   <div className="prop-heading-rera-no">
                     Rera No : {data.rera_id}

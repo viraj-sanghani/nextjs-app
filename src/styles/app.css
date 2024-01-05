@@ -1792,13 +1792,18 @@ button {
 * Home Advertising
 **********************************/
 
-.home-advertise-wrap .swiper-slide {
-  width: calc(50% - 10px);
-  margin-right: 20px;
+.home-advertise-wrap {
+  display: flex;
+  flex-wrap: wrap;
 }
-.home-advertise-wrap .swiper-slide:last-child {
+.home-advertise-wrap .property-card {
+  width: calc(50% - 20px);
+  margin: 10px;
+  /* margin-right: 20px; */
+}
+/* .home-advertise-wrap .property-card:last-child {
   margin-right: 0;
-}
+} */
 
 .advertise-container {
   width: 100%;
@@ -3228,6 +3233,9 @@ button {
   display: flex;
   justify-content: space-between;
   gap: 20px;
+}
+.prop-heading h1 {
+  font-size: 18px;
 }
 .prop-heading-rera-no {
   margin-top: 7px;
