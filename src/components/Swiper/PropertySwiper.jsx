@@ -13,7 +13,7 @@ const PropertySwiper = ({ data, className = "" }) => {
       <div className={className}>
         <SwiperComp
           slidesPerView={"auto"}
-          spaceBetween={20}
+          spaceBetween={0}
           navigation={true}
           className="swiper-box max-width property-swiper"
         >

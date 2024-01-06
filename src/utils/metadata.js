@@ -180,7 +180,7 @@ const generateMeta = (data) => {
         images: d.image,
       },
       verification: {
-        google: "google-site-verification=75475894",
+        google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
       },
     };
   } else
@@ -203,7 +203,7 @@ const generateMeta = (data) => {
         images: data?.image,
       },
       verification: {
-        google: "google-site-verification=75475894",
+        google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
       },
     };
 };

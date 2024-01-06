@@ -10,6 +10,7 @@ import HomeBannerSwiper from "@/components/Swiper/HomeBannerSwiper";
 import HomeAdsSwiper from "@/components/Swiper/HomeAdsSwiper";
 import SearchbarSkeleton from "@/components/Skeleton/SearchbarSkeleton";
 import RentSaleProp from "./RentSaleProp";
+import { useSearchParams } from "next/navigation";
 const Searchbar = lazy(() => import("@/components/Searchbar"));
 const HowItWork = lazy(() => import("./HowItWork"));
 const FeaturedTools = lazy(() => import("./FeaturedTools"));
@@ -18,14 +19,17 @@ const AdvertiseSwiper = lazy(() =>
   import("@/components/Swiper/AdvertiseSwiper")
 );
 
-const Home = ({ data }) => {
+const Home = ({ data, isDesktop }) => {
   const dispatch = useDispatch();
 
   return (
     <div style={{ marginTop: -70 }}>
       <div className="home-banner">
         <div className="home-banner-wrap">
-          <HomeBannerSwiper data={data?.homeBanners || []} />
+          <HomeBannerSwiper
+            desktop={isDesktop}
+            data={data?.homeBanners || []}
+          />
         </div>
       </div>
 

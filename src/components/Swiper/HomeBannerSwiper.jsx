@@ -5,15 +5,14 @@ import Image from "next/image";
 import { SwiperSlide } from "swiper/react";
 import SwiperComp from "./Swiper";
 
-const HomeBannerSwiper = ({ data }) => {
-  const [isDesktop, setIsDesktop] = useState(true);
+const HomeBannerSwiper = ({ data, desktop }) => {
+  const [isDesktop, setIsDesktop] = useState(desktop);
 
   const handleResize = () => {
     setIsDesktop(window.innerWidth > 1024);
   };
 
   useEffect(() => {
-    handleResize();
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);

@@ -5,10 +5,17 @@ import "@/styles/swiper.min.css";
 import "@/styles/navigation.css";
 import RootProvider from "./Provider";
 import generateMeta from "@/utils/metadata";
+import { useSearchParams } from "next/navigation";
 
 const open_sans = Open_Sans({ subsets: ["latin"] });
 
 export const metadata = generateMeta("home");
+
+/* export async function generateMetadata(data, parent) {
+  const page =
+    searchParams.url === "/" ? "home" : searchParams.url.split("/").at(-1);
+  return generateMeta(page) || generateMeta("home");
+} */
 
 const RootLayout = ({ children }) => {
   return (

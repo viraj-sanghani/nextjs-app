@@ -17,9 +17,14 @@ export const getHomeDetail = async () => {
   };
 };
 
-const page = async () => {
+const page = async ({ searchParams }) => {
   const data = await getHomeDetail();
-  return <Home data={data} />;
+  return (
+    <Home
+      isDesktop={searchParams?.isDesktop === "false" ? false : true}
+      data={data}
+    />
+  );
 };
 
 export default page;

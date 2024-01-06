@@ -9,7 +9,7 @@ import { getFilterFields, getFilters, sliderKeys } from "@/utils/data";
 import { formatNumber } from "@/utils/helper";
 import Loading from "./Loading";
 
-function SearchbarFilter({ searchParams, className }) {
+function SearchbarFilter({ searchParams, className, handleCloseSearchBar }) {
   const router = useRouter();
   const { searchType } = useSelector((state) => state.filter);
   const [filter, setFilter] = useState([]);
@@ -356,6 +356,9 @@ function SearchbarFilter({ searchParams, className }) {
     router.push(
       `/search/${searchType.for}/${searchType.type}/${url}${urlData}`
     );
+
+    setLoading(false);
+    handleCloseSearchBar();
   };
 
   const updateFilters = () => {

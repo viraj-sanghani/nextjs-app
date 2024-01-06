@@ -208,6 +208,7 @@ function Searchbar({ isHome }) {
           <SearchbarFilter
             searchParams={selectedItem}
             className={!showFilter ? "hide" : ""}
+            handleCloseSearchBar={handleBackButton}
           />
 
           <div

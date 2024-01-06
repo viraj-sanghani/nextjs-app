@@ -1,5 +1,3 @@
-import images from "./images";
-
 export function formatNumber(num) {
   if (num >= 10000000) {
     return (num / 10000000).toFixed(2) + " Cr";
