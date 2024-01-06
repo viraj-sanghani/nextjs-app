@@ -10,7 +10,6 @@ import HomeBannerSwiper from "@/components/Swiper/HomeBannerSwiper";
 import HomeAdsSwiper from "@/components/Swiper/HomeAdsSwiper";
 import SearchbarSkeleton from "@/components/Skeleton/SearchbarSkeleton";
 import RentSaleProp from "./RentSaleProp";
-import { useSearchParams } from "next/navigation";
 const Searchbar = lazy(() => import("@/components/Searchbar"));
 const HowItWork = lazy(() => import("./HowItWork"));
 const FeaturedTools = lazy(() => import("./FeaturedTools"));
